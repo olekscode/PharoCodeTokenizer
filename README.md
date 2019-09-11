@@ -1,7 +1,7 @@
 # Pharo Code Tokenizer
 
 [![Build Status](https://travis-ci.org/olekscode/PharoCodeTokenizer.svg?branch=master)](https://travis-ci.org/olekscode/PharoCodeTokenizer)
-[![Build status](https://ci.appveyor.com/api/projects/status/2rt11b48vfh7fsbw?svg=true)](https://ci.appveyor.com/project/olekscode/pharocodetokenizer)
+[![Build status](https://ci.appveyor.com/api/projects/status/b7dpo08tkwcd6de2?svg=true)](https://ci.appveyor.com/project/olekscode/pharocodetokenizer)
 [![Coverage Status](https://coveralls.io/repos/github/olekscode/PharoCodeTokenizer/badge.svg?branch=master)](https://coveralls.io/github/olekscode/PharoCodeTokenizer?branch=master)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/olekscode/PharoCodeTokenizer/master/LICENSE)
 [![Pharo version](https://img.shields.io/badge/Pharo-6.1-%23aac9ff.svg)](https://pharo.org/download)
