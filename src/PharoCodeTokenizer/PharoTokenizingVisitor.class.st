@@ -16,6 +16,7 @@ PharoTokenizingVisitor >> arguments [
 
 { #category : #initialization }
 PharoTokenizingVisitor >> initialize [
+	super initialize.
 	tokens := OrderedCollection new.
 	arguments := OrderedCollection new
 ]
@@ -23,17 +24,6 @@ PharoTokenizingVisitor >> initialize [
 { #category : #accessing }
 PharoTokenizingVisitor >> name [
 	^ name
-]
-
-{ #category : #visiting }
-PharoTokenizingVisitor >> tokenizeLiteral: aLiteral [
-	aLiteral isNumber
-		ifTrue: [ ^ '<num>' ].
-	aLiteral isString
-		ifTrue: [ ^ '<str>' ].
-	aLiteral isCharacter 
-		ifTrue: [ ^ '<str>' ].
-	^ aLiteral asString
 ]
 
 { #category : #accessing }
@@ -82,37 +72,21 @@ PharoTokenizingVisitor >> visitGlobalNode: aGlobalNode [
 
 { #category : #visiting }
 PharoTokenizingVisitor >> visitLiteralArrayNode: aLiteralNode [
-	| literal |
-	literal := aLiteralNode value.
-	tokens add: '#('.
-	literal do: [ :each |
-		each isArray
-			ifTrue: [ self visitLiteralArrayNode: each ]
-			ifFalse: [ tokens add: (self tokenizeLiteral: each) ] ].
-	tokens add: ')'
+	tokens add: aLiteralNode value.
 ]
 
 { #category : #visiting }
 PharoTokenizingVisitor >> visitLiteralNode: aLiteralNode [
 	| literal |
 	literal := aLiteralNode value.
-	tokens add: (self tokenizeLiteral: literal)
+	tokens add: literal
 ]
 
 { #category : #visiting }
 PharoTokenizingVisitor >> visitMessageNode: aMessageNode [
-	| shouldBeInParentheses |
-	shouldBeInParentheses := aMessageNode arguments size > 0.
-	shouldBeInParentheses
-		ifTrue: [ tokens add: '(' ].
 	aMessageNode receiver acceptVisitor: self.
-	aMessageNode arguments size = 0
-		ifTrue: [ tokens add: aMessageNode selector asString ].
-	1 to: aMessageNode arguments size do: [ :i | 
-		tokens add: (aMessageNode selectorParts at: i) asString.
-		(aMessageNode arguments at: i) acceptVisitor: self ].
-	shouldBeInParentheses
-		ifTrue: [ tokens add: ')' ]
+	tokens add: aMessageNode selector asString.
+	aMessageNode arguments do: [ :each | each acceptVisitor: self ].
 ]
 
 { #category : #visiting }
