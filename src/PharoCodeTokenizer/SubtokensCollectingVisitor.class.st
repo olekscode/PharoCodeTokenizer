@@ -8,11 +8,41 @@ Class {
 SubtokensCollectingVisitor >> encodeLiteral: aLiteral [
 	aLiteral isNumber
 		ifTrue: [ ^ '<num>' ].
+	aLiteral isSymbol
+		ifTrue: [ ^ '<sym>' ].
 	aLiteral isString
 		ifTrue: [ ^ '<str>' ].
 	aLiteral isCharacter 
 		ifTrue: [ ^ '<chr>' ].
 	^ aLiteral asString "true, false, or nil"
+]
+
+{ #category : #'as yet unclassified' }
+SubtokensCollectingVisitor >> extractSubtokens: aString [
+	^ (aString splitIdentifierName collect: #asLowercase) collect: [ :each |
+		[ each asNumber. '<num>' ] on: Error do: [ each ] ]
+]
+
+{ #category : #visiting }
+SubtokensCollectingVisitor >> visitArgumentNode: anArgumentNode [
+	tokens addAll: (self extractSubtokens: anArgumentNode name asString)
+]
+
+{ #category : #visiting }
+SubtokensCollectingVisitor >> visitBlockNode: aBlockNode [
+	tokens add: '['.
+	aBlockNode arguments do: [ :each |
+		tokens add: ':'.
+		each acceptVisitor: self  ].
+	aBlockNode arguments size > 0
+		ifTrue: [ tokens add: '|' ].
+	aBlockNode body acceptVisitor: self.
+	tokens add: ']'
+]
+
+{ #category : #visiting }
+SubtokensCollectingVisitor >> visitGlobalNode: aGlobalNode [
+	tokens addAll: (self extractSubtokens: aGlobalNode name asString)
 ]
 
 { #category : #visiting }
@@ -30,18 +60,28 @@ SubtokensCollectingVisitor >> visitMessageNode: aMessageNode [
 	aMessageNode receiver acceptVisitor: self.
 	
 	aMessageNode arguments
-		ifEmpty: [ tokens add: aMessageNode selector asString ]
+		ifEmpty: [ tokens addAll: (self extractSubtokens: aMessageNode selector asString) ]
 		ifNotEmpty: [
 			(1 to: aMessageNode arguments size) do: [ :i | 
-				tokens add: (aMessageNode selectorParts at: i) asString.
+				tokens addAll: (self extractSubtokens: (aMessageNode selectorParts at: i) asString).
 				(aMessageNode arguments at: i) acceptVisitor: self ] ].
 ]
 
 { #category : #visiting }
 SubtokensCollectingVisitor >> visitMethodNode: aMethodNode [
 	super visitMethodNode: aMethodNode.
-	tokens := tokens flatCollect: [ :token | 
-		(#('<num>' '<str>' '<chr>' '<arr>') includes: token)
+	"tokens := tokens flatCollect: [ :token | 
+		(#('<num>' '<sym>' '<str>' '<chr>' '<arr>') includes: token)
 			ifTrue: [ { token } ]
-			ifFalse: [ token splitIdentifierName collect: #asLowercase ] ].
+			ifFalse: [ token splitIdentifierName collect: #asLowercase ] ]."
+]
+
+{ #category : #visiting }
+SubtokensCollectingVisitor >> visitTemporaryNode: aTemporaryNode [
+	tokens addAll: (self extractSubtokens: aTemporaryNode name asString)
+]
+
+{ #category : #visiting }
+SubtokensCollectingVisitor >> visitVariableNode: aVariableNode [
+	tokens addAll: (self extractSubtokens: aVariableNode name asString)
 ]
