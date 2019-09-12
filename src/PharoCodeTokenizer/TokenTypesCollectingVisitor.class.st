@@ -8,6 +8,8 @@ Class {
 TokenTypesCollectingVisitor >> encodeLiteral: aLiteral [
 	aLiteral isNumber
 		ifTrue: [ ^ 'NUM' ].
+	aLiteral isSymbol
+		ifTrue: [ ^ 'SYM' ].
 	aLiteral isString
 		ifTrue: [ ^ 'STR' ].
 	aLiteral isCharacter 
@@ -43,17 +45,17 @@ TokenTypesCollectingVisitor >> visitAssignmentNode: anAssignment [
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitBlockNode: aBlockNode [
-	tokens add: 'BR1'.
+	tokens add: 'SB1'.
 	aBlockNode arguments do: [ :each | each acceptVisitor: self ].
 	aBlockNode arguments size > 0
 		ifTrue: [ tokens add: 'PIP' ].
 	aBlockNode body acceptVisitor: self.
-	tokens add: 'BR2'
+	tokens add: 'SB2'
 ]
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitGlobalNode: aGlobalNode [
-	tokens add: 'GLO'
+	tokens add: 'GLB'
 ]
 
 { #category : #visiting }
