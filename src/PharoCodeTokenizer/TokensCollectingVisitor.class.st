@@ -48,11 +48,10 @@ TokensCollectingVisitor >> visitArrayNode: aLiteralNode [
 ]
 
 { #category : #visiting }
-TokensCollectingVisitor >> visitAssignmentNode: anAssignement [
-	tokens
-		add: anAssignement variable name asString;
-		add: ':='.
-	anAssignement value acceptVisitor: self
+TokensCollectingVisitor >> visitAssignmentNode: anAssignment [
+	anAssignment variable acceptVisitor: self.
+	tokens add: ':='.
+	anAssignment value acceptVisitor: self
 ]
 
 { #category : #visiting }

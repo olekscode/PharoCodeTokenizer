@@ -9,6 +9,14 @@ CompiledMethod >> subtokens [
 ]
 
 { #category : #'*PharoCodeTokenizer' }
+CompiledMethod >> tokenTypes [
+	| visitor |
+	visitor := TokenTypesCollectingVisitor new.
+	self ast acceptVisitor: visitor.
+	^ visitor tokens
+]
+
+{ #category : #'*PharoCodeTokenizer' }
 CompiledMethod >> tokens [ 
 	| visitor |
 	visitor := TokensCollectingVisitor new.
