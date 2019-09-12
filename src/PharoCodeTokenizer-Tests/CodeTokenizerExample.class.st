@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #examples }
+CodeTokenizerExample >> exampleAlphabeticCharacter [
+	$X
+]
+
+{ #category : #examples }
 CodeTokenizerExample >> exampleArray [
 	{1 . 'hello' . true . nil}
 ]
@@ -44,12 +49,24 @@ CodeTokenizerExample >> exampleCharacter [
 
 { #category : #examples }
 CodeTokenizerExample >> exampleClass [
-	Array
+	OrderedCollection
 ]
 
 { #category : #examples }
 CodeTokenizerExample >> exampleCollect [
 	self collect: [ :variableName | variableName ]
+]
+
+{ #category : #'as yet unclassified' }
+CodeTokenizerExample >> exampleComment [
+	"this is a comment"
+	'hello', 1 asString.
+	"another comment"
+]
+
+{ #category : #'as yet unclassified' }
+CodeTokenizerExample >> exampleCommentEmptyMethod [
+	"this is a comment"
 ]
 
 { #category : #examples }

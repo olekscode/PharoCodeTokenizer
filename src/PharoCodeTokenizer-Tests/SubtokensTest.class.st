@@ -15,6 +15,15 @@ SubtokensTest >> setUp [
 ]
 
 { #category : #tests }
+SubtokensTest >> testAlphabeticCharacter [
+	| method expected actual |
+	method := exampleClass >> #exampleAlphabeticCharacter.
+	expected := OrderedCollection withAll: #('<chr>' .).
+	actual := method subtokens.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
 SubtokensTest >> testArray [
 	| method expected actual |
 	method := exampleClass >> #exampleArray.
@@ -76,7 +85,7 @@ SubtokensTest >> testCharacter [
 SubtokensTest >> testClass [
 	| method expected actual |
 	method := exampleClass >> #exampleClass.
-	expected := OrderedCollection withAll: #(array .).
+	expected := OrderedCollection withAll: #(ordered collection .).
 	actual := method subtokens.
 	self assert: actual equals: expected
 ]
@@ -86,6 +95,24 @@ SubtokensTest >> testCollect [
 	| method expected actual |
 	method := exampleClass >> #exampleCollect.
 	expected := OrderedCollection withAll: #(self collect : [ : variable name | variable name . ] .).
+	actual := method subtokens.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
+SubtokensTest >> testComment [
+	| method expected actual |
+	method := exampleClass >> #exampleComment.
+	expected := OrderedCollection withAll: #('<str>' , '<num>' as string .).
+	actual := method subtokens.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
+SubtokensTest >> testCommentEmptyMethod [
+	| method expected actual |
+	method := exampleClass >> #exampleCommentEmptyMethod.
+	expected := OrderedCollection withAll: #().
 	actual := method subtokens.
 	self assert: actual equals: expected
 ]

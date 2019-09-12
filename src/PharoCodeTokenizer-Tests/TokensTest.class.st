@@ -15,6 +15,15 @@ TokensTest >> setUp [
 ]
 
 { #category : #tests }
+TokensTest >> testAlphabeticCharacter [
+	| method expected actual |
+	method := exampleClass >> #exampleAlphabeticCharacter.
+	expected := OrderedCollection withAll: #(X .).
+	actual := method tokens.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
 TokensTest >> testArray [
 	| method expected actual |
 	method := exampleClass >> #exampleArray.
@@ -76,7 +85,7 @@ TokensTest >> testCharacter [
 TokensTest >> testClass [
 	| method expected actual |
 	method := exampleClass >> #exampleClass.
-	expected := OrderedCollection withAll: #(Array .).
+	expected := OrderedCollection withAll: #(OrderedCollection .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -86,6 +95,24 @@ TokensTest >> testCollect [
 	| method expected actual |
 	method := exampleClass >> #exampleCollect.
 	expected := OrderedCollection withAll: #(self collect: [ ':variableName' | variableName . ] .).
+	actual := method tokens.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
+TokensTest >> testComment [
+	| method expected actual |
+	method := exampleClass >> #exampleComment.
+	expected := OrderedCollection withAll: #(hello , '1' asString .).
+	actual := method tokens.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
+TokensTest >> testCommentEmptyMethod [
+	| method expected actual |
+	method := exampleClass >> #exampleCommentEmptyMethod.
+	expected := OrderedCollection withAll: #().
 	actual := method tokens.
 	self assert: actual equals: expected
 ]

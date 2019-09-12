@@ -35,9 +35,10 @@ CompiledMethod >> wordsFromIdentifierNames [
 { #category : #'*PharoCodeTokenizer' }
 CompiledMethod >> wordsFromSourceCode [
 	"Collect individual words that compose identifier names, as well as words from strings and comments. Source code is turned into a sequence of lowercase words"
-	| sourceCodeWithoutMethodName tokens alphabeticTokens |
+	| sourceCodeWithoutMethodName tokens alphabeticTokens lowercaseTokens |
 	sourceCodeWithoutMethodName := self sourceCode lines copyWithoutFirst.
 	tokens := (sourceCodeWithoutMethodName flatCollect: #substrings) flatCollect: #splitIdentifierName.
 	alphabeticTokens := tokens select: #isAllLetters.
-	^ alphabeticTokens collect: #asLowercase.
+	lowercaseTokens := alphabeticTokens collect: #asLowercase.
+	^ lowercaseTokens asOrderedCollection
 ]

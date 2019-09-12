@@ -15,6 +15,15 @@ TokenTypesTest >> setUp [
 ]
 
 { #category : #tests }
+TokenTypesTest >> testAlphabeticCharacter [
+	| method expected actual |
+	method := exampleClass >> #exampleAlphabeticCharacter.
+	expected := OrderedCollection withAll: #(CHR DOT).
+	actual := method tokenTypes.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
 TokenTypesTest >> testArray [
 	| method expected actual |
 	method := exampleClass >> #exampleArray.
@@ -86,6 +95,24 @@ TokenTypesTest >> testCollect [
 	| method expected actual |
 	method := exampleClass >> #exampleCollect.
 	expected := OrderedCollection withAll: #(VAR MSG SB1 ARG PIP ARG DOT SB2 DOT).
+	actual := method tokenTypes.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
+TokenTypesTest >> testComment [
+	| method expected actual |
+	method := exampleClass >> #exampleComment.
+	expected := OrderedCollection withAll: #(STR MSG NUM MSG DOT).
+	actual := method tokenTypes.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
+TokenTypesTest >> testCommentEmptyMethod [
+	| method expected actual |
+	method := exampleClass >> #exampleCommentEmptyMethod.
+	expected := OrderedCollection withAll: #().
 	actual := method tokenTypes.
 	self assert: actual equals: expected
 ]
