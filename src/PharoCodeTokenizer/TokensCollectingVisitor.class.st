@@ -76,9 +76,7 @@ TokensCollectingVisitor >> visitLiteralArrayNode: aLiteralNode [
 
 { #category : #visiting }
 TokensCollectingVisitor >> visitLiteralNode: aLiteralNode [
-	| literal |
-	literal := aLiteralNode value.
-	tokens add: literal
+	tokens add: aLiteralNode value asString
 ]
 
 { #category : #visiting }

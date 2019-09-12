@@ -18,7 +18,7 @@ TokensTest >> setUp [
 TokensTest >> testArray [
 	| method expected actual |
 	method := exampleClass >> #exampleArray.
-	expected := OrderedCollection withAll: #('{' 1 '.' 'hello' '.' true '.' nil '}' '.').
+	expected := OrderedCollection withAll: #('{' '1' '.' 'hello' '.' 'true' '.' 'nil' '}' '.').
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -27,7 +27,7 @@ TokensTest >> testArray [
 TokensTest >> testAssignment [
 	| method expected actual |
 	method := exampleClass >> #exampleAssignment.
-	expected := OrderedCollection withAll: #(| variableName | variableName ':=' 2 .).
+	expected := OrderedCollection withAll: #(| variableName | variableName ':=' '2' .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -36,7 +36,7 @@ TokensTest >> testAssignment [
 TokensTest >> testBlock [
 	| method expected actual |
 	method := exampleClass >> #exampleBlock.
-	expected := OrderedCollection withAll: #([ 1 + 2 . ] .).
+	expected := OrderedCollection withAll: #([ '1' + '2' . ] .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -45,7 +45,7 @@ TokensTest >> testBlock [
 TokensTest >> testBlockWithArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleBlockWithArgs.
-	expected := OrderedCollection withAll: #([ ':variableName' | variableName + 2 . ] .).
+	expected := OrderedCollection withAll: #([ ':variableName' | variableName + '2' . ] .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -56,8 +56,8 @@ TokensTest >> testBlockWithArgsAndTemp [
 	method := exampleClass >> #exampleBlockWithArgsAndTemp.
 	expected := OrderedCollection withAll: #([ ':variableName' ':anotherVariableName' | 
 	| argument1 argument2 |
-	argument1 ':=' variableName + 1 .
-	argument2 ':=' anotherVariableName - 1 .
+	argument1 ':=' variableName + '1' .
+	argument2 ':=' anotherVariableName - '1' .
 	argument1 * argument2 . ] .).
 	actual := method tokens.
 	self assert: actual equals: expected
@@ -67,7 +67,7 @@ TokensTest >> testBlockWithArgsAndTemp [
 TokensTest >> testCharacter [
 	| method expected actual |
 	method := exampleClass >> #exampleCharacter.
-	expected := OrderedCollection withAll: #($, .).
+	expected := OrderedCollection withAll: #(, .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -112,7 +112,7 @@ TokensTest >> testEmptyLiteralArray [
 TokensTest >> testInstanceVariable [
 	| method expected actual |
 	method := exampleClass >> #exampleInstanceVariable.
-	expected := OrderedCollection withAll: #(anInstanceVariable ':=' 1 .).
+	expected := OrderedCollection withAll: #(anInstanceVariable ':=' '1' .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -130,7 +130,7 @@ TokensTest >> testLiteralArray [
 TokensTest >> testMessageNoArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageNoArgs.
-	expected := OrderedCollection withAll: #(2 asInteger .).
+	expected := OrderedCollection withAll: #('2' asInteger .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -139,7 +139,7 @@ TokensTest >> testMessageNoArgs [
 TokensTest >> testMessageOneArg [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageOneArg.
-	expected := OrderedCollection withAll: #(Array new: 2 .).
+	expected := OrderedCollection withAll: #(Array new: '2' .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -148,7 +148,7 @@ TokensTest >> testMessageOneArg [
 TokensTest >> testMessageOperator [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageOperator.
-	expected := OrderedCollection withAll: #(1 + 2 .).
+	expected := OrderedCollection withAll: #('1' + '2' .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -157,7 +157,7 @@ TokensTest >> testMessageOperator [
 TokensTest >> testMessageThreeArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageThreeArgs.
-	expected := OrderedCollection withAll: #(Array with:with:with: 3 4 5 .).
+	expected := OrderedCollection withAll: #(Array with:with:with: '3' '4' '5' .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -166,7 +166,7 @@ TokensTest >> testMessageThreeArgs [
 TokensTest >> testMessageTwoArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageTwoArgs.
-	expected := OrderedCollection withAll: #(Array with:with: 3 4 .).
+	expected := OrderedCollection withAll: #(Array with:with: '3' '4' .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -175,7 +175,7 @@ TokensTest >> testMessageTwoArgs [
 TokensTest >> testNestedArrays [
 	| method expected actual |
 	method := exampleClass >> #exampleNestedArrays.
-	expected := OrderedCollection withAll: #({ { 1 . hello } . true . { false } } .).
+	expected := OrderedCollection withAll: #({ { '1' . hello } . 'true' . { 'false' } } .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -193,7 +193,7 @@ TokensTest >> testNestedLiteralArrays [
 TokensTest >> testNumber [
 	| method expected actual |
 	method := exampleClass >> #exampleNumber.
-	expected := OrderedCollection withAll: #(5 .).
+	expected := OrderedCollection withAll: #('5' .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -202,7 +202,7 @@ TokensTest >> testNumber [
 TokensTest >> testParentheses [
 	| method expected actual |
 	method := exampleClass >> #exampleParentheses.
-	expected := OrderedCollection withAll: #(2 * 3 + 4 .).
+	expected := OrderedCollection withAll: #('2' * '3' + '4' .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -211,7 +211,7 @@ TokensTest >> testParentheses [
 TokensTest >> testReturn [
 	| method expected actual |
 	method := exampleClass >> #exampleReturn.
-	expected := OrderedCollection withAll: #(^ 1 .).
+	expected := OrderedCollection withAll: #(^ '1' .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -229,7 +229,7 @@ TokensTest >> testSelf [
 TokensTest >> testSequence [
 	| method expected actual |
 	method := exampleClass >> #exampleSequence.
-	expected := OrderedCollection withAll: #(5. '#(1 2 true)' .).
+	expected := OrderedCollection withAll: #('5' . '#(1 2 true)' .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -266,8 +266,8 @@ TokensTest >> testTemporaryUsed [
 	| method expected actual |
 	method := exampleClass >> #exampleTemporaryUsed.
 	expected := OrderedCollection withAll: #(| tempVAR1 tempVAR2 |
-	tempVAR1 ':=' 1.
-	tempVAR2 ':=' 2.
+	tempVAR1 ':=' '1'.
+	tempVAR2 ':=' '2'.
 	tempVAR1 + tempVAR2 .).
 	actual := method tokens.
 	self assert: actual equals: expected
@@ -286,7 +286,7 @@ TokensTest >> testThisContext [
 TokensTest >> testWithArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleWithArgs:.
-	expected := OrderedCollection withAll: #(^ anArg + 5 .).
+	expected := OrderedCollection withAll: #(^ anArg + '5' .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
