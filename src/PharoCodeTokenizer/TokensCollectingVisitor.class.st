@@ -2,28 +2,15 @@ Class {
 	#name : #TokensCollectingVisitor,
 	#superclass : #RBProgramNodeVisitor,
 	#instVars : [
-		'name',
-		'tokens',
-		'arguments'
+		'tokens'
 	],
 	#category : #PharoCodeTokenizer
 }
-
-{ #category : #accessing }
-TokensCollectingVisitor >> arguments [
-	^ arguments
-]
 
 { #category : #initialization }
 TokensCollectingVisitor >> initialize [
 	super initialize.
 	tokens := OrderedCollection new.
-	arguments := OrderedCollection new
-]
-
-{ #category : #accessing }
-TokensCollectingVisitor >> name [
-	^ name
 ]
 
 { #category : #accessing }
@@ -88,11 +75,8 @@ TokensCollectingVisitor >> visitMessageNode: aMessageNode [
 
 { #category : #visiting }
 TokensCollectingVisitor >> visitMethodNode: aMethodNode [
-	name := aMethodNode selector asString.
 	aMethodNode children
 		do: [ :each | 
-			each class = RBArgumentNode
-				ifTrue: [ arguments add: each name asString ].
 			each class = RBSequenceNode
 				ifTrue: [ each acceptVisitor: self ] ]
 ]
