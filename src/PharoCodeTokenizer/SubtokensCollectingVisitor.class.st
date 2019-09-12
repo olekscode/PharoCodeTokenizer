@@ -12,7 +12,7 @@ SubtokensCollectingVisitor >> encodeLiteral: aLiteral [
 		ifTrue: [ ^ '<str>' ].
 	aLiteral isCharacter 
 		ifTrue: [ ^ '<chr>' ].
-	^ '<unk>'
+	^ aLiteral asString "true, false, or nil"
 ]
 
 { #category : #visiting }
@@ -41,7 +41,7 @@ SubtokensCollectingVisitor >> visitMessageNode: aMessageNode [
 SubtokensCollectingVisitor >> visitMethodNode: aMethodNode [
 	super visitMethodNode: aMethodNode.
 	tokens := tokens flatCollect: [ :token | 
-		(#('<num>' '<str>' '<chr>' '<arr>' '<unk>') includes: token)
+		(#('<num>' '<str>' '<chr>' '<arr>') includes: token)
 			ifTrue: [ { token } ]
 			ifFalse: [ token splitIdentifierName collect: #asLowercase ] ].
 ]
