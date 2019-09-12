@@ -1,32 +1,32 @@
 Class {
-	#name : #AlphabeticSubtokensVisitor,
-	#superclass : #PharoTokenizingVisitor,
+	#name : #AlphabeticSubtokensCollectingVisitor,
+	#superclass : #TokensCollectingVisitor,
 	#category : #PharoCodeTokenizer
 }
 
 { #category : #visiting }
-AlphabeticSubtokensVisitor >> visitAssignmentNode: anAssignement [
+AlphabeticSubtokensCollectingVisitor >> visitAssignmentNode: anAssignement [
 	tokens add: anAssignement variable name asString.
 	anAssignement value acceptVisitor: self
 ]
 
 { #category : #visiting }
-AlphabeticSubtokensVisitor >> visitBlockNode: aBlockNode [
+AlphabeticSubtokensCollectingVisitor >> visitBlockNode: aBlockNode [
 	aBlockNode body acceptVisitor: self.
 ]
 
 { #category : #visiting }
-AlphabeticSubtokensVisitor >> visitLiteralArrayNode: aLiteralNode [
+AlphabeticSubtokensCollectingVisitor >> visitLiteralArrayNode: aLiteralNode [
 	"do nothing"
 ]
 
 { #category : #visiting }
-AlphabeticSubtokensVisitor >> visitLiteralNode: aLiteralNode [
+AlphabeticSubtokensCollectingVisitor >> visitLiteralNode: aLiteralNode [
 	"do nothing"
 ]
 
 { #category : #visiting }
-AlphabeticSubtokensVisitor >> visitMessageNode: aMessageNode [
+AlphabeticSubtokensCollectingVisitor >> visitMessageNode: aMessageNode [
 	aMessageNode receiver acceptVisitor: self.
 	
 	aMessageNode arguments
@@ -38,7 +38,7 @@ AlphabeticSubtokensVisitor >> visitMessageNode: aMessageNode [
 ]
 
 { #category : #visiting }
-AlphabeticSubtokensVisitor >> visitMethodNode: aMethodNode [
+AlphabeticSubtokensCollectingVisitor >> visitMethodNode: aMethodNode [
 	super visitMethodNode: aMethodNode.
 	tokens := tokens flatCollect: #splitIdentifierName.
 	tokens := tokens select: #isAllLetters.
@@ -46,7 +46,7 @@ AlphabeticSubtokensVisitor >> visitMethodNode: aMethodNode [
 ]
 
 { #category : #visiting }
-AlphabeticSubtokensVisitor >> visitSequenceNode: aSequence [
+AlphabeticSubtokensCollectingVisitor >> visitSequenceNode: aSequence [
 	aSequence statements
 		do: [ :each | each acceptVisitor: self ]
 ]

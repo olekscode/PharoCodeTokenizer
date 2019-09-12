@@ -165,7 +165,7 @@ PharoTokenizingVisitorTest >> exampleWithArgs: anArg [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testArray [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleArray) ast acceptVisitor: visitor.
 	self assert: visitor name equals: 'exampleArray'.
 	self
@@ -177,7 +177,7 @@ PharoTokenizingVisitorTest >> testArray [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testArrayCurly [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleArrayCurly) ast acceptVisitor: visitor.
 	self assert: visitor name equals: 'exampleArrayCurly'.
 	self
@@ -189,7 +189,7 @@ PharoTokenizingVisitorTest >> testArrayCurly [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testAssignment [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleAssignment) ast acceptVisitor: visitor.
 	self assert: visitor name equals: 'exampleAssignment'.
 	self
@@ -201,7 +201,7 @@ PharoTokenizingVisitorTest >> testAssignment [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testBlock [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleBlock) ast acceptVisitor: visitor.
 	self
 		assert: visitor tokens
@@ -211,7 +211,7 @@ PharoTokenizingVisitorTest >> testBlock [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testBlockWithArgs [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleBlockWithArgs) ast acceptVisitor: visitor.
 	self
 		assert: visitor tokens
@@ -221,7 +221,7 @@ PharoTokenizingVisitorTest >> testBlockWithArgs [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testBlockWithArgsAndTemp [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleBlockWithArgsAndTemp) ast acceptVisitor: visitor.
 	self
 		assert: visitor tokens
@@ -233,7 +233,7 @@ PharoTokenizingVisitorTest >> testBlockWithArgsAndTemp [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testCharacter [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleCharacter) ast acceptVisitor: visitor.
 	self assert: visitor name equals: 'exampleCharacter'.
 	self
@@ -245,7 +245,7 @@ PharoTokenizingVisitorTest >> testCharacter [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testClass [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleClass) ast acceptVisitor: visitor.
 	self assert: visitor tokens equals: #('Array' '.') asOrderedCollection
 ]
@@ -253,7 +253,7 @@ PharoTokenizingVisitorTest >> testClass [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testCollect [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleCollect) ast acceptVisitor: visitor.
 	self
 		assert: visitor tokens
@@ -263,7 +263,7 @@ PharoTokenizingVisitorTest >> testCollect [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testEmptyArray [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleEmptyArray) ast acceptVisitor: visitor.
 	self assert: visitor name equals: 'exampleEmptyArray'.
 	self assert: visitor tokens equals: #('#(' ')' '.') asOrderedCollection.
@@ -273,7 +273,7 @@ PharoTokenizingVisitorTest >> testEmptyArray [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testEmptyArrayCurly [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleEmptyArrayCurly) ast acceptVisitor: visitor.
 	self assert: visitor name equals: 'exampleEmptyArrayCurly'.
 	self assert: visitor tokens equals: #('{' '}' '.') asOrderedCollection.
@@ -283,7 +283,7 @@ PharoTokenizingVisitorTest >> testEmptyArrayCurly [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testInstanceVariable [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleInstanceVariable) ast acceptVisitor: visitor.
 	self
 		assert: visitor tokens
@@ -293,7 +293,7 @@ PharoTokenizingVisitorTest >> testInstanceVariable [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testMessageNoArgs [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleMessageNoArgs) ast acceptVisitor: visitor.
 	self assert: visitor tokens equals: #('<num>' 'asInteger' '.') asOrderedCollection
 ]
@@ -301,7 +301,7 @@ PharoTokenizingVisitorTest >> testMessageNoArgs [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testMessageOneArg [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleMessageOneArg) ast acceptVisitor: visitor.
 	self
 		assert: visitor tokens
@@ -311,7 +311,7 @@ PharoTokenizingVisitorTest >> testMessageOneArg [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testMessageOperator [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleMessageOperator) ast acceptVisitor: visitor.
 	self
 		assert: visitor tokens
@@ -321,7 +321,7 @@ PharoTokenizingVisitorTest >> testMessageOperator [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testMessageThreeArgs [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleMessageThreeArgs) ast acceptVisitor: visitor.
 	self
 		assert: visitor tokens
@@ -331,7 +331,7 @@ PharoTokenizingVisitorTest >> testMessageThreeArgs [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testMessageTwoArgs [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleMessageTwoArgs) ast acceptVisitor: visitor.
 	self
 		assert: visitor tokens
@@ -341,7 +341,7 @@ PharoTokenizingVisitorTest >> testMessageTwoArgs [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testNestedArrays [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleNestedArrays) ast acceptVisitor: visitor.
 	self
 		assert: visitor tokens
@@ -353,7 +353,7 @@ PharoTokenizingVisitorTest >> testNestedArrays [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testNestedArraysCurly [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleNestedArraysCurly) ast acceptVisitor: visitor.
 	self
 		assert: visitor tokens
@@ -365,7 +365,7 @@ PharoTokenizingVisitorTest >> testNestedArraysCurly [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testNumber [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleNumber) ast acceptVisitor: visitor.
 	self assert: visitor tokens equals: #('<num>' '.') asOrderedCollection
 ]
@@ -373,7 +373,7 @@ PharoTokenizingVisitorTest >> testNumber [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testParentheses [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleParentheses) ast acceptVisitor: visitor.
 	self assert: visitor name equals: 'exampleParentheses'.
 	self
@@ -385,7 +385,7 @@ PharoTokenizingVisitorTest >> testParentheses [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testReturn [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleReturn) ast acceptVisitor: visitor.
 	self assert: visitor tokens equals: #('^' '<num>' '.') asOrderedCollection
 ]
@@ -393,7 +393,7 @@ PharoTokenizingVisitorTest >> testReturn [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testSelf [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleSelf) ast acceptVisitor: visitor.
 	self assert: visitor tokens equals: #('self' '.') asOrderedCollection
 ]
@@ -401,7 +401,7 @@ PharoTokenizingVisitorTest >> testSelf [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testSequence [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleSequence) ast acceptVisitor: visitor.
 	self
 		assert: visitor tokens
@@ -411,7 +411,7 @@ PharoTokenizingVisitorTest >> testSequence [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testSuper [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleSuper) ast acceptVisitor: visitor.
 	self assert: visitor tokens equals: #('super' '.') asOrderedCollection
 ]
@@ -419,7 +419,7 @@ PharoTokenizingVisitorTest >> testSuper [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testSymbol [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleSymbol) ast acceptVisitor: visitor.
 	self assert: visitor name equals: 'exampleSymbol'.
 	self
@@ -431,7 +431,7 @@ PharoTokenizingVisitorTest >> testSymbol [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testTemporary [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleTemporary) ast acceptVisitor: visitor.
 	self assert: visitor tokens equals: #('|' 'x' 'y' 'z' '|') asOrderedCollection
 ]
@@ -439,7 +439,7 @@ PharoTokenizingVisitorTest >> testTemporary [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testTemporaryUsed [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleTemporaryUsed) ast acceptVisitor: visitor.
 	self
 		assert: visitor tokens
@@ -451,7 +451,7 @@ PharoTokenizingVisitorTest >> testTemporaryUsed [
 { #category : #examples }
 PharoTokenizingVisitorTest >> testWithArgs [
 	| visitor |
-	visitor := PharoTokenizingVisitor new.
+	visitor := TokensCollectingVisitor new.
 	(self class >> #exampleWithArgs:) ast acceptVisitor: visitor.
 	self assert: visitor name equals: 'exampleWithArgs:'.
 	self assert: visitor tokens equals: #('<num>' '.') asOrderedCollection.

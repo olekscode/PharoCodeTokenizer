@@ -1,5 +1,5 @@
 Class {
-	#name : #PharoTokenizingVisitor,
+	#name : #TokensCollectingVisitor,
 	#superclass : #RBProgramNodeVisitor,
 	#instVars : [
 		'name',
@@ -10,34 +10,34 @@ Class {
 }
 
 { #category : #accessing }
-PharoTokenizingVisitor >> arguments [
+TokensCollectingVisitor >> arguments [
 	^ arguments
 ]
 
 { #category : #initialization }
-PharoTokenizingVisitor >> initialize [
+TokensCollectingVisitor >> initialize [
 	super initialize.
 	tokens := OrderedCollection new.
 	arguments := OrderedCollection new
 ]
 
 { #category : #accessing }
-PharoTokenizingVisitor >> name [
+TokensCollectingVisitor >> name [
 	^ name
 ]
 
 { #category : #accessing }
-PharoTokenizingVisitor >> tokens [
+TokensCollectingVisitor >> tokens [
 	^ tokens
 ]
 
 { #category : #visiting }
-PharoTokenizingVisitor >> visitArgumentNode: anArgumentNode [
+TokensCollectingVisitor >> visitArgumentNode: anArgumentNode [
 	tokens add: anArgumentNode name asString
 ]
 
 { #category : #visiting }
-PharoTokenizingVisitor >> visitArrayNode: aLiteralNode [
+TokensCollectingVisitor >> visitArrayNode: aLiteralNode [
 	tokens add: '{'.
 	1 to: aLiteralNode children size - 1 do: [ :i | 
 		(aLiteralNode children at: i) acceptVisitor: self.
@@ -48,7 +48,7 @@ PharoTokenizingVisitor >> visitArrayNode: aLiteralNode [
 ]
 
 { #category : #visiting }
-PharoTokenizingVisitor >> visitAssignmentNode: anAssignement [
+TokensCollectingVisitor >> visitAssignmentNode: anAssignement [
 	tokens
 		add: anAssignement variable name asString;
 		add: ':='.
@@ -56,7 +56,7 @@ PharoTokenizingVisitor >> visitAssignmentNode: anAssignement [
 ]
 
 { #category : #visiting }
-PharoTokenizingVisitor >> visitBlockNode: aBlockNode [
+TokensCollectingVisitor >> visitBlockNode: aBlockNode [
 	tokens add: '['.
 	aBlockNode arguments do: [ :each | tokens add: ':' , each name asString ].
 	aBlockNode arguments size > 0
@@ -66,31 +66,31 @@ PharoTokenizingVisitor >> visitBlockNode: aBlockNode [
 ]
 
 { #category : #visiting }
-PharoTokenizingVisitor >> visitGlobalNode: aGlobalNode [
+TokensCollectingVisitor >> visitGlobalNode: aGlobalNode [
 	tokens add: aGlobalNode name asString
 ]
 
 { #category : #visiting }
-PharoTokenizingVisitor >> visitLiteralArrayNode: aLiteralNode [
+TokensCollectingVisitor >> visitLiteralArrayNode: aLiteralNode [
 	tokens add: aLiteralNode value.
 ]
 
 { #category : #visiting }
-PharoTokenizingVisitor >> visitLiteralNode: aLiteralNode [
+TokensCollectingVisitor >> visitLiteralNode: aLiteralNode [
 	| literal |
 	literal := aLiteralNode value.
 	tokens add: literal
 ]
 
 { #category : #visiting }
-PharoTokenizingVisitor >> visitMessageNode: aMessageNode [
+TokensCollectingVisitor >> visitMessageNode: aMessageNode [
 	aMessageNode receiver acceptVisitor: self.
 	tokens add: aMessageNode selector asString.
 	aMessageNode arguments do: [ :each | each acceptVisitor: self ].
 ]
 
 { #category : #visiting }
-PharoTokenizingVisitor >> visitMethodNode: aMethodNode [
+TokensCollectingVisitor >> visitMethodNode: aMethodNode [
 	name := aMethodNode selector asString.
 	aMethodNode children
 		do: [ :each | 
@@ -101,13 +101,13 @@ PharoTokenizingVisitor >> visitMethodNode: aMethodNode [
 ]
 
 { #category : #visiting }
-PharoTokenizingVisitor >> visitReturnNode: aReturnNode [
+TokensCollectingVisitor >> visitReturnNode: aReturnNode [
 	tokens add: '^'.
 	aReturnNode children do: [ :each | each acceptVisitor: self ]
 ]
 
 { #category : #visiting }
-PharoTokenizingVisitor >> visitSequenceNode: aSequence [
+TokensCollectingVisitor >> visitSequenceNode: aSequence [
 	aSequence temporaries size > 0
 		ifTrue: [ tokens add: '|'.
 			aSequence temporaries do: [ :each | each acceptVisitor: self ].
@@ -119,11 +119,11 @@ PharoTokenizingVisitor >> visitSequenceNode: aSequence [
 ]
 
 { #category : #visiting }
-PharoTokenizingVisitor >> visitTemporaryNode: aTemporaryNode [
+TokensCollectingVisitor >> visitTemporaryNode: aTemporaryNode [
 	tokens add: aTemporaryNode name asString
 ]
 
 { #category : #visiting }
-PharoTokenizingVisitor >> visitVariableNode: aVariableNode [
+TokensCollectingVisitor >> visitVariableNode: aVariableNode [
 	tokens add: aVariableNode name asString
 ]
