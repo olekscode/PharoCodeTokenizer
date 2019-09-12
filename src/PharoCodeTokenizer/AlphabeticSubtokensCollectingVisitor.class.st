@@ -22,7 +22,9 @@ AlphabeticSubtokensCollectingVisitor >> visitLiteralArrayNode: aLiteralNode [
 
 { #category : #visiting }
 AlphabeticSubtokensCollectingVisitor >> visitLiteralNode: aLiteralNode [
-	"do nothing"
+	(#(true false nil) includes: aLiteralNode value)
+		ifTrue: [ tokens add: aLiteralNode value asString ].	
+	"do nothing if it is string, symbol, or number"
 ]
 
 { #category : #visiting }

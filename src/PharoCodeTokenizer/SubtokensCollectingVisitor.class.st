@@ -68,15 +68,6 @@ SubtokensCollectingVisitor >> visitMessageNode: aMessageNode [
 ]
 
 { #category : #visiting }
-SubtokensCollectingVisitor >> visitMethodNode: aMethodNode [
-	super visitMethodNode: aMethodNode.
-	"tokens := tokens flatCollect: [ :token | 
-		(#('<num>' '<sym>' '<str>' '<chr>' '<arr>') includes: token)
-			ifTrue: [ { token } ]
-			ifFalse: [ token splitIdentifierName collect: #asLowercase ] ]."
-]
-
-{ #category : #visiting }
 SubtokensCollectingVisitor >> visitTemporaryNode: aTemporaryNode [
 	tokens addAll: (self extractSubtokens: aTemporaryNode name asString)
 ]
