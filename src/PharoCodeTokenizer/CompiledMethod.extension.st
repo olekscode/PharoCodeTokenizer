@@ -1,6 +1,14 @@
 Extension { #name : #CompiledMethod }
 
 { #category : #'*PharoCodeTokenizer' }
+CompiledMethod >> strings [ 
+	| visitor |
+	visitor := StringCollectingVisitor new.
+	self ast acceptVisitor: visitor.
+	^ visitor strings
+]
+
+{ #category : #'*PharoCodeTokenizer' }
 CompiledMethod >> subtokens [ 
 	| visitor |
 	visitor := SubtokensCollectingVisitor new.
