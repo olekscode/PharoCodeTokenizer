@@ -19,6 +19,12 @@ CommentCollectingVisitor >> initialize [
 ]
 
 { #category : #initialization }
+CommentCollectingVisitor >> visitMethodNode: aNode [
+	self comments addAll: (aNode comments collect: #contents).
+	super visitMethodNode: aNode.
+]
+
+{ #category : #initialization }
 CommentCollectingVisitor >> visitNode: aNode [
 	super visitNode: aNode.
 	self comments addAll: (aNode comments collect: #contents).

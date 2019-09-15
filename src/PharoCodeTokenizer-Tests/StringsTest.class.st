@@ -153,7 +153,7 @@ StringsTest >> testInstanceVariable [
 StringsTest >> testLiteralArray [
 	| method expected actual |
 	method := exampleClass >> #exampleLiteralArray.
-	expected := OrderedCollection withAll: #(hello).
+	expected := OrderedCollection withAll: #().
 	actual := method strings.
 	self assert: actual equals: expected
 ]
@@ -216,7 +216,7 @@ StringsTest >> testNestedArrays [
 StringsTest >> testNestedLiteralArrays [
 	| method expected actual |
 	method := exampleClass >> #exampleNestedLiteralArrays.
-	expected := OrderedCollection withAll: #(hello).
+	expected := OrderedCollection withAll: #().
 	actual := method strings.
 	self assert: actual equals: expected
 ]

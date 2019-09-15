@@ -25,6 +25,10 @@ StringCollectingVisitor >> strings: anObject [
 
 { #category : #initialization }
 StringCollectingVisitor >> visitLiteralNode: aLiteralNode [
-	aLiteralNode value isString ifTrue: [ 
-		self strings add: aLiteralNode value ]
+	| value |
+	value := aLiteralNode value.
+	
+	value isString ifTrue: [
+		value isSymbol ifFalse: [ 
+			self strings add: value ] ]
 ]
