@@ -49,6 +49,7 @@ TokenTypesCollectingVisitor >> visitBlockNode: aBlockNode [
 	aBlockNode arguments do: [ :each | each acceptVisitor: self ].
 	aBlockNode arguments size > 0
 		ifTrue: [ tokens add: 'PIP' ].
+	aBlockNode comments do: [ :each | tokens add: 'COM' ].
 	aBlockNode body acceptVisitor: self.
 	tokens add: 'SB2'
 ]
@@ -76,6 +77,16 @@ TokenTypesCollectingVisitor >> visitMessageNode: aMessageNode [
 ]
 
 { #category : #visiting }
+TokenTypesCollectingVisitor >> visitMethodNode: aMethodNode [
+	aMethodNode comments do: [ :each | tokens add: 'COM' ].
+	
+	aMethodNode children
+		do: [ :each |
+			each class = RBSequenceNode
+				ifTrue: [ self visitNode: each ] ]
+]
+
+{ #category : #visiting }
 TokenTypesCollectingVisitor >> visitReturnNode: aReturnNode [
 	tokens add: 'RET'.
 	aReturnNode children do: [ :each | each acceptVisitor: self ]
@@ -90,7 +101,8 @@ TokenTypesCollectingVisitor >> visitSequenceNode: aSequence [
 	aSequence statements
 		do: [ :each | 
 			each acceptVisitor: self.
-			tokens add: 'DOT' ]
+			tokens add: 'DOT'.
+			each commentStrings do: [ :comment | tokens add: 'COM' ] ]
 ]
 
 { #category : #visiting }

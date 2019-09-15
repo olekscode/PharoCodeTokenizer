@@ -103,7 +103,7 @@ TokenTypesTest >> testCollect [
 TokenTypesTest >> testComment [
 	| method expected actual |
 	method := exampleClass >> #exampleComment.
-	expected := OrderedCollection withAll: #(STR MSG NUM MSG DOT SB1 FLS DOT SB2 MSG SB1 RET NUM MSG NUM DOT SB2 DOT).
+	expected := OrderedCollection withAll: #(COM STR MSG NUM MSG DOT COM SB1 FLS DOT SB2 MSG SB1 COM RET NUM MSG NUM DOT SB2 DOT).
 	actual := method tokenTypes.
 	self assert: actual equals: expected
 ]
@@ -112,7 +112,7 @@ TokenTypesTest >> testComment [
 TokenTypesTest >> testCommentEmptyMethod [
 	| method expected actual |
 	method := exampleClass >> #exampleCommentEmptyMethod.
-	expected := OrderedCollection withAll: #().
+	expected := OrderedCollection withAll: #(COM).
 	actual := method tokenTypes.
 	self assert: actual equals: expected
 ]

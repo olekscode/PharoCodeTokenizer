@@ -4,6 +4,11 @@ Class {
 	#category : #PharoCodeTokenizer
 }
 
+{ #category : #adding }
+AlphabeticSubtokensCollectingVisitor >> addComments: aCollectionOfComments [
+	"do nothing"
+]
+
 { #category : #visiting }
 AlphabeticSubtokensCollectingVisitor >> visitAssignmentNode: anAssignement [
 	tokens add: anAssignement variable name asString.

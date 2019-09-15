@@ -4,6 +4,11 @@ Class {
 	#category : #PharoCodeTokenizer
 }
 
+{ #category : #adding }
+SubtokensCollectingVisitor >> addComments: aCollectionOfComments [
+	"do nothing"
+]
+
 { #category : #visiting }
 SubtokensCollectingVisitor >> encodeLiteral: aLiteral [
 	aLiteral isNumber

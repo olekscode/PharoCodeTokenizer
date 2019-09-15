@@ -7,6 +7,11 @@ Class {
 	#category : #PharoCodeTokenizer
 }
 
+{ #category : #adding }
+TokensCollectingVisitor >> addComments: aCollectionOfComments [
+	tokens addAll: aCollectionOfComments
+]
+
 { #category : #initialization }
 TokensCollectingVisitor >> initialize [
 	super initialize.
@@ -27,18 +32,18 @@ TokensCollectingVisitor >> visitArgumentNode: anArgumentNode [
 TokensCollectingVisitor >> visitArrayNode: aLiteralNode [
 	tokens add: '{'.
 	1 to: aLiteralNode children size - 1 do: [ :i | 
-		(aLiteralNode children at: i) acceptVisitor: self.
+		self visitNode: (aLiteralNode children at: i).
 		tokens add: '.' ].
 	aLiteralNode children isEmpty
-		ifFalse: [ aLiteralNode children last acceptVisitor: self ].
+		ifFalse: [ self visitNode: aLiteralNode children last ].
 	tokens add: '}'
 ]
 
 { #category : #visiting }
 TokensCollectingVisitor >> visitAssignmentNode: anAssignment [
-	anAssignment variable acceptVisitor: self.
+	self visitNode: anAssignment variable.
 	tokens add: ':='.
-	anAssignment value acceptVisitor: self
+	self visitNode: anAssignment value.
 ]
 
 { #category : #visiting }
@@ -47,7 +52,8 @@ TokensCollectingVisitor >> visitBlockNode: aBlockNode [
 	aBlockNode arguments do: [ :each | tokens add: ':' , each name asString ].
 	aBlockNode arguments size > 0
 		ifTrue: [ tokens add: '|' ].
-	aBlockNode body acceptVisitor: self.
+	self addComments: (aBlockNode comments collect: #contents).
+	self visitNode: aBlockNode body.
 	tokens add: ']'
 ]
 
@@ -68,35 +74,44 @@ TokensCollectingVisitor >> visitLiteralNode: aLiteralNode [
 
 { #category : #visiting }
 TokensCollectingVisitor >> visitMessageNode: aMessageNode [
-	aMessageNode receiver acceptVisitor: self.
+	self visitNode: aMessageNode receiver.
 	tokens add: aMessageNode selector asString.
-	aMessageNode arguments do: [ :each | each acceptVisitor: self ].
+	aMessageNode arguments do: [ :each | self visitNode: each ].
 ]
 
 { #category : #visiting }
 TokensCollectingVisitor >> visitMethodNode: aMethodNode [
+	self addComments: aMethodNode commentStrings.
+	
 	aMethodNode children
-		do: [ :each | 
+		do: [ :each |
 			each class = RBSequenceNode
-				ifTrue: [ each acceptVisitor: self ] ]
+				ifTrue: [ self visitNode: each ] ]
+]
+
+{ #category : #visiting }
+TokensCollectingVisitor >> visitNode: aNode [
+	super visitNode: aNode.
+	"self tokens addAll: aNode commentStrings."
 ]
 
 { #category : #visiting }
 TokensCollectingVisitor >> visitReturnNode: aReturnNode [
 	tokens add: '^'.
-	aReturnNode children do: [ :each | each acceptVisitor: self ]
+	aReturnNode children do: [ :each | self visitNode: each ]
 ]
 
 { #category : #visiting }
-TokensCollectingVisitor >> visitSequenceNode: aSequence [
-	aSequence temporaries size > 0
+TokensCollectingVisitor >> visitSequenceNode: aNode [
+	aNode temporaries size > 0
 		ifTrue: [ tokens add: '|'.
-			aSequence temporaries do: [ :each | each acceptVisitor: self ].
+			aNode temporaries do: [ :each | self visitNode: each ].
 			tokens add: '|' ].
-	aSequence statements
+	aNode statements
 		do: [ :each | 
-			each acceptVisitor: self.
-			tokens add: '.' ]
+			self visitNode: each.
+			tokens add: '.'.
+			self addComments: each commentStrings. ].
 ]
 
 { #category : #visiting }

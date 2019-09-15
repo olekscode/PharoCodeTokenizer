@@ -103,7 +103,7 @@ TokensTest >> testCollect [
 TokensTest >> testComment [
 	| method expected actual |
 	method := exampleClass >> #exampleComment.
-	expected := OrderedCollection withAll: #('hello' , '1' asString . [ 'false' . ] ifTrue: [ ^ '1' + '1' . ] .).
+	expected := OrderedCollection withAll: #('this is a comment' 'hello' , '1' asString . 'another comment' [ 'false' . ] ifTrue: [ 'comment inside a block' ^ '1' + '1' . ] .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -112,7 +112,7 @@ TokensTest >> testComment [
 TokensTest >> testCommentEmptyMethod [
 	| method expected actual |
 	method := exampleClass >> #exampleCommentEmptyMethod.
-	expected := OrderedCollection withAll: #().
+	expected := OrderedCollection withAll: #('this is a comment').
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
