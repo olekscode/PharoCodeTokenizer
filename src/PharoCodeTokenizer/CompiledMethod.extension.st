@@ -1,6 +1,14 @@
 Extension { #name : #CompiledMethod }
 
 { #category : #'*PharoCodeTokenizer' }
+CompiledMethod >> comments [ 
+	| visitor |
+	visitor := CommentCollectingVisitor new.
+	self ast acceptVisitor: visitor.
+	^ visitor comments
+]
+
+{ #category : #'*PharoCodeTokenizer' }
 CompiledMethod >> strings [ 
 	| visitor |
 	visitor := StringCollectingVisitor new.
