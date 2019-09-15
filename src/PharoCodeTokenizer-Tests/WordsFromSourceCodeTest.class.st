@@ -103,7 +103,7 @@ WordsFromSourceCodeTest >> testCollect [
 WordsFromSourceCodeTest >> testComment [
 	| method expected actual |
 	method := exampleClass >> #exampleComment.
-	expected := OrderedCollection withAll: #(this is a comment hello as string another comment).
+	expected := OrderedCollection withAll: #(this is a comment hello as string another comment 'false' if 'true' comment inside a block).
 	actual := method wordsFromSourceCode.
 	self assert: actual equals: expected
 ]
@@ -130,6 +130,15 @@ WordsFromSourceCodeTest >> testEmptyArray [
 WordsFromSourceCodeTest >> testEmptyLiteralArray [
 	| method expected actual |
 	method := exampleClass >> #exampleEmptyLiteralArray.
+	expected := OrderedCollection withAll: #().
+	actual := method wordsFromSourceCode.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
+WordsFromSourceCodeTest >> testEmptyMethod [
+	| method expected actual |
+	method := exampleClass >> #exampleEmptyMethod.
 	expected := OrderedCollection withAll: #().
 	actual := method wordsFromSourceCode.
 	self assert: actual equals: expected

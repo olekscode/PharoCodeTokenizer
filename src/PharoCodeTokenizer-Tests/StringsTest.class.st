@@ -1,5 +1,5 @@
 Class {
-	#name : #WordsFromIdentifierNamesTest,
+	#name : #StringsTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'anInstanceVariable',
@@ -9,319 +9,313 @@ Class {
 }
 
 { #category : #running }
-WordsFromIdentifierNamesTest >> setUp [ 
+StringsTest >> setUp [ 
 	super setUp.
 	exampleClass := CodeTokenizerExample.
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testAlphabeticCharacter [
+StringsTest >> testAlphabeticCharacter [
 	| method expected actual |
 	method := exampleClass >> #exampleAlphabeticCharacter.
 	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testArray [
+StringsTest >> testArray [
 	| method expected actual |
 	method := exampleClass >> #exampleArray.
-	expected := OrderedCollection withAll: #('true' 'nil').
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #(hello).
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testAssignment [
+StringsTest >> testAssignment [
 	| method expected actual |
 	method := exampleClass >> #exampleAssignment.
-	expected := OrderedCollection withAll: #(variable name).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testBlock [
+StringsTest >> testBlock [
 	| method expected actual |
 	method := exampleClass >> #exampleBlock.
 	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testBlockWithArgs [
+StringsTest >> testBlockWithArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleBlockWithArgs.
-	expected := OrderedCollection withAll: #(variable name).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testBlockWithArgsAndTemp [
+StringsTest >> testBlockWithArgsAndTemp [
 	| method expected actual |
 	method := exampleClass >> #exampleBlockWithArgsAndTemp.
-	expected := OrderedCollection withAll: #( 
-	argument variable name
-	argument another variable name
-	argument argument).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testCharacter [
+StringsTest >> testCharacter [
 	| method expected actual |
 	method := exampleClass >> #exampleCharacter.
 	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testClass [
+StringsTest >> testClass [
 	| method expected actual |
 	method := exampleClass >> #exampleClass.
-	expected := OrderedCollection withAll: #(ordered collection).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testCollect [
+StringsTest >> testCollect [
 	| method expected actual |
 	method := exampleClass >> #exampleCollect.
-	expected := OrderedCollection withAll: #(self collect variable name).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testComment [
+StringsTest >> testComment [
 	| method expected actual |
 	method := exampleClass >> #exampleComment.
-	expected := OrderedCollection withAll: #(as string 'false' if 'true').
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #(hello).
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testCommentEmptyMethod [
+StringsTest >> testCommentEmptyMethod [
 	| method expected actual |
 	method := exampleClass >> #exampleCommentEmptyMethod.
 	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testEmptyArray [
+StringsTest >> testEmptyArray [
 	| method expected actual |
 	method := exampleClass >> #exampleEmptyArray.
 	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testEmptyLiteralArray [
+StringsTest >> testEmptyLiteralArray [
 	| method expected actual |
 	method := exampleClass >> #exampleEmptyLiteralArray.
 	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testEmptyMethod [
+StringsTest >> testEmptyMethod [
 	| method expected actual |
 	method := exampleClass >> #exampleEmptyMethod.
 	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testInstanceVariable [
+StringsTest >> testInstanceVariable [
 	| method expected actual |
 	method := exampleClass >> #exampleInstanceVariable.
-	expected := OrderedCollection withAll: #(an instance variable).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testLiteralArray [
+StringsTest >> testLiteralArray [
 	| method expected actual |
 	method := exampleClass >> #exampleLiteralArray.
-	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #(hello).
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testMessageNoArgs [
+StringsTest >> testMessageNoArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageNoArgs.
-	expected := OrderedCollection withAll: #(as integer).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testMessageOneArg [
+StringsTest >> testMessageOneArg [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageOneArg.
-	expected := OrderedCollection withAll: #(array new).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testMessageOperator [
+StringsTest >> testMessageOperator [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageOperator.
 	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testMessageThreeArgs [
+StringsTest >> testMessageThreeArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageThreeArgs.
-	expected := OrderedCollection withAll: #(array with with with).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testMessageTwoArgs [
+StringsTest >> testMessageTwoArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageTwoArgs.
-	expected := OrderedCollection withAll: #(array with with).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testNestedArrays [
+StringsTest >> testNestedArrays [
 	| method expected actual |
 	method := exampleClass >> #exampleNestedArrays.
-	expected := OrderedCollection withAll: #('true' 'false').
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #(hello).
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testNestedLiteralArrays [
+StringsTest >> testNestedLiteralArrays [
 	| method expected actual |
 	method := exampleClass >> #exampleNestedLiteralArrays.
-	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #(hello).
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testNumber [
+StringsTest >> testNumber [
 	| method expected actual |
 	method := exampleClass >> #exampleNumber.
 	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testParentheses [
+StringsTest >> testParentheses [
 	| method expected actual |
 	method := exampleClass >> #exampleParentheses.
 	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testReturn [
+StringsTest >> testReturn [
 	| method expected actual |
 	method := exampleClass >> #exampleReturn.
 	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testSelf [
+StringsTest >> testSelf [
 	| method expected actual |
 	method := exampleClass >> #exampleSelf.
-	expected := OrderedCollection withAll: #(self).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testSequence [
+StringsTest >> testSequence [
 	| method expected actual |
 	method := exampleClass >> #exampleSequence.
 	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testSuper [
+StringsTest >> testSuper [
 	| method expected actual |
 	method := exampleClass >> #exampleSuper.
-	expected := OrderedCollection withAll: #(super).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testSymbol [
+StringsTest >> testSymbol [
 	| method expected actual |
 	method := exampleClass >> #exampleSymbol.
 	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testTemporary [
+StringsTest >> testTemporary [
 	| method expected actual |
 	method := exampleClass >> #exampleTemporary.
 	expected := OrderedCollection withAll: #().
-	actual := method wordsFromIdentifierNames.
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testTemporaryUsed [
+StringsTest >> testTemporaryUsed [
 	| method expected actual |
 	method := exampleClass >> #exampleTemporaryUsed.
-	expected := OrderedCollection withAll: #(
-	temp var
-	temp var
-	temp var temp var).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testThisContext [
+StringsTest >> testThisContext [
 	| method expected actual |
 	method := exampleClass >> #exampleThisContext.
-	expected := OrderedCollection withAll: #(this context).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testWithArgs [
+StringsTest >> testWithArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleWithArgs:.
-	expected := OrderedCollection withAll: #(an arg).
-	actual := method wordsFromIdentifierNames.
+	expected := OrderedCollection withAll: #().
+	actual := method strings.
 	self assert: actual equals: expected
 ]

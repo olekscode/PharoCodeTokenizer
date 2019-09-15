@@ -103,7 +103,7 @@ SubtokensTest >> testCollect [
 SubtokensTest >> testComment [
 	| method expected actual |
 	method := exampleClass >> #exampleComment.
-	expected := OrderedCollection withAll: #('<str>' , '<num>' as string .).
+	expected := OrderedCollection withAll: #('<str>' , '<num>' as string . [ 'false' . ] if 'true' : [ ^ '<num>' + '<num>' . ] .).
 	actual := method subtokens.
 	self assert: actual equals: expected
 ]
@@ -131,6 +131,15 @@ SubtokensTest >> testEmptyLiteralArray [
 	| method expected actual |
 	method := exampleClass >> #exampleEmptyLiteralArray.
 	expected := OrderedCollection withAll: #('<arr>' .).
+	actual := method subtokens.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
+SubtokensTest >> testEmptyMethod [
+	| method expected actual |
+	method := exampleClass >> #exampleEmptyMethod.
+	expected := OrderedCollection withAll: #().
 	actual := method subtokens.
 	self assert: actual equals: expected
 ]

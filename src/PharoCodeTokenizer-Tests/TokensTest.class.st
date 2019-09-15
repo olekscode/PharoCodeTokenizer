@@ -103,7 +103,7 @@ TokensTest >> testCollect [
 TokensTest >> testComment [
 	| method expected actual |
 	method := exampleClass >> #exampleComment.
-	expected := OrderedCollection withAll: #(hello , '1' asString .).
+	expected := OrderedCollection withAll: #('hello' , '1' asString . [ 'false' . ] ifTrue: [ ^ '1' + '1' . ] .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]
@@ -131,6 +131,15 @@ TokensTest >> testEmptyLiteralArray [
 	| method expected actual |
 	method := exampleClass >> #exampleEmptyLiteralArray.
 	expected := OrderedCollection withAll: #('#()' .).
+	actual := method tokens.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
+TokensTest >> testEmptyMethod [
+	| method expected actual |
+	method := exampleClass >> #exampleEmptyMethod.
+	expected := OrderedCollection withAll: #().
 	actual := method tokens.
 	self assert: actual equals: expected
 ]

@@ -103,7 +103,7 @@ TokenTypesTest >> testCollect [
 TokenTypesTest >> testComment [
 	| method expected actual |
 	method := exampleClass >> #exampleComment.
-	expected := OrderedCollection withAll: #(STR MSG NUM MSG DOT).
+	expected := OrderedCollection withAll: #(STR MSG NUM MSG DOT SB1 FLS DOT SB2 MSG SB1 RET NUM MSG NUM DOT SB2 DOT).
 	actual := method tokenTypes.
 	self assert: actual equals: expected
 ]
@@ -131,6 +131,15 @@ TokenTypesTest >> testEmptyLiteralArray [
 	| method expected actual |
 	method := exampleClass >> #exampleEmptyLiteralArray.
 	expected := OrderedCollection withAll: #(ARR DOT).
+	actual := method tokenTypes.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
+TokenTypesTest >> testEmptyMethod [
+	| method expected actual |
+	method := exampleClass >> #exampleEmptyMethod.
+	expected := OrderedCollection withAll: #().
 	actual := method tokenTypes.
 	self assert: actual equals: expected
 ]

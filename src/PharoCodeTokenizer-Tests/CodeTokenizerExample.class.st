@@ -62,6 +62,9 @@ CodeTokenizerExample >> exampleComment [
 	"this is a comment"
 	'hello', 1 asString.
 	"another comment"
+	[ false ] ifTrue: [ 
+		"comment inside a block".
+		^ 1 + 1 ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -77,6 +80,10 @@ CodeTokenizerExample >> exampleEmptyArray [
 { #category : #examples }
 CodeTokenizerExample >> exampleEmptyLiteralArray [
 	#()
+]
+
+{ #category : #'examples-simple' }
+CodeTokenizerExample >> exampleEmptyMethod [
 ]
 
 { #category : #examples }
