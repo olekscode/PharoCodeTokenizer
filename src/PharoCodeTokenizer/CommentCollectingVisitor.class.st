@@ -21,5 +21,5 @@ CommentCollectingVisitor >> initialize [
 { #category : #initialization }
 CommentCollectingVisitor >> visitNode: aNode [
 	super visitNode: aNode.
-	self comments addAll: aNode comments.
+	self comments addAll: (aNode comments collect: #contents).
 ]
