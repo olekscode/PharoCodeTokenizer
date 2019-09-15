@@ -162,6 +162,15 @@ CommentsTest >> testLiteralArray [
 ]
 
 { #category : #tests }
+CommentsTest >> testLiteralArrayWithStringAndSymbol [
+	| method expected actual |
+	method := exampleClass >> #exampleLiteralArrayWithStringAndSymbol.
+	expected := OrderedCollection withAll: #().
+	actual := method comments.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
 CommentsTest >> testMessageNoArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageNoArgs.

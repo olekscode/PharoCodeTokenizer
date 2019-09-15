@@ -162,6 +162,15 @@ WordsFromIdentifierNamesTest >> testLiteralArray [
 ]
 
 { #category : #tests }
+WordsFromIdentifierNamesTest >> testLiteralArrayWithStringAndSymbol [
+	| method expected actual |
+	method := exampleClass >> #exampleLiteralArrayWithStringAndSymbol.
+	expected := OrderedCollection withAll: #().
+	actual := method wordsFromIdentifierNames.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
 WordsFromIdentifierNamesTest >> testMessageNoArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageNoArgs.

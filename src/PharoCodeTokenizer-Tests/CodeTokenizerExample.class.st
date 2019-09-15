@@ -97,6 +97,11 @@ CodeTokenizerExample >> exampleLiteralArray [
 ]
 
 { #category : #examples }
+CodeTokenizerExample >> exampleLiteralArrayWithStringAndSymbol [
+	#(Hello world 'Hello world')
+]
+
+{ #category : #examples }
 CodeTokenizerExample >> exampleMessageNoArgs [
 	2 asInteger
 ]

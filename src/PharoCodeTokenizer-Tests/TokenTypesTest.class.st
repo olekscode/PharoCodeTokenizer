@@ -163,6 +163,15 @@ TokenTypesTest >> testLiteralArray [
 ]
 
 { #category : #tests }
+TokenTypesTest >> testLiteralArrayWithStringAndSymbol [
+	| method expected actual |
+	method := exampleClass >> #exampleLiteralArrayWithStringAndSymbol.
+	expected := OrderedCollection withAll: #(ARR DOT).
+	actual := method tokenTypes.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
 TokenTypesTest >> testMessageNoArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageNoArgs.

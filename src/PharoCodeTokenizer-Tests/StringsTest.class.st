@@ -159,6 +159,15 @@ StringsTest >> testLiteralArray [
 ]
 
 { #category : #tests }
+StringsTest >> testLiteralArrayWithStringAndSymbol [
+	| method expected actual |
+	method := exampleClass >> #exampleLiteralArrayWithStringAndSymbol.
+	expected := OrderedCollection withAll: #('Hello world').
+	actual := method strings.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
 StringsTest >> testMessageNoArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageNoArgs.

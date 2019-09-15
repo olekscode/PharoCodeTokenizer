@@ -163,6 +163,15 @@ SubtokensTest >> testLiteralArray [
 ]
 
 { #category : #tests }
+SubtokensTest >> testLiteralArrayWithStringAndSymbol [
+	| method expected actual |
+	method := exampleClass >> #exampleLiteralArrayWithStringAndSymbol.
+	expected := OrderedCollection withAll: #('<arr>' .).
+	actual := method subtokens.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
 SubtokensTest >> testMessageNoArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageNoArgs.

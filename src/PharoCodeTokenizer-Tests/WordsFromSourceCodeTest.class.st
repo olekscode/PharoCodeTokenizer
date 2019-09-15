@@ -163,6 +163,15 @@ WordsFromSourceCodeTest >> testLiteralArray [
 ]
 
 { #category : #tests }
+WordsFromSourceCodeTest >> testLiteralArrayWithStringAndSymbol [
+	| method expected actual |
+	method := exampleClass >> #exampleLiteralArrayWithStringAndSymbol.
+	expected := OrderedCollection withAll: #(hello world hello world).
+	actual := method wordsFromSourceCode.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
 WordsFromSourceCodeTest >> testMessageNoArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageNoArgs.
