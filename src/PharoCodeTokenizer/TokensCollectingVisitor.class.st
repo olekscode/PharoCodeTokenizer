@@ -68,7 +68,7 @@ TokensCollectingVisitor >> visitGlobalNode: aGlobalNode [
 
 { #category : #visiting }
 TokensCollectingVisitor >> visitLiteralArrayNode: aLiteralNode [
-	tokens add: aLiteralNode value asString.
+	tokens add: aLiteralNode value fullPrintString.
 ]
 
 { #category : #visiting }
