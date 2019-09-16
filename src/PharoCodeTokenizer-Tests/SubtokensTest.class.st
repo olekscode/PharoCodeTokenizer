@@ -145,6 +145,15 @@ SubtokensTest >> testEmptyMethod [
 ]
 
 { #category : #tests }
+SubtokensTest >> testGlobal [
+	| method expected actual |
+	method := exampleClass >> #exampleGlobal.
+	expected := OrderedCollection withAll: #(transcript .).
+	actual := method subtokens.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
 SubtokensTest >> testInstanceVariable [
 	| method expected actual |
 	method := exampleClass >> #exampleInstanceVariable.

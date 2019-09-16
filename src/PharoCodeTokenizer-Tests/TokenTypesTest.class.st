@@ -85,7 +85,7 @@ TokenTypesTest >> testCharacter [
 TokenTypesTest >> testClass [
 	| method expected actual |
 	method := exampleClass >> #exampleClass.
-	expected := OrderedCollection withAll: #(GLB DOT).
+	expected := OrderedCollection withAll: #(CLS DOT).
 	actual := method tokenTypes.
 	self assert: actual equals: expected
 ]
@@ -145,6 +145,15 @@ TokenTypesTest >> testEmptyMethod [
 ]
 
 { #category : #tests }
+TokenTypesTest >> testGlobal [
+	| method expected actual |
+	method := exampleClass >> #exampleGlobal.
+	expected := OrderedCollection withAll: #(GLB DOT).
+	actual := method tokenTypes.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
 TokenTypesTest >> testInstanceVariable [
 	| method expected actual |
 	method := exampleClass >> #exampleInstanceVariable.
@@ -184,7 +193,7 @@ TokenTypesTest >> testMessageNoArgs [
 TokenTypesTest >> testMessageOneArg [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageOneArg.
-	expected := OrderedCollection withAll: #(GLB MSG NUM DOT).
+	expected := OrderedCollection withAll: #(CLS MSG NUM DOT).
 	actual := method tokenTypes.
 	self assert: actual equals: expected
 ]
@@ -202,7 +211,7 @@ TokenTypesTest >> testMessageOperator [
 TokenTypesTest >> testMessageThreeArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageThreeArgs.
-	expected := OrderedCollection withAll: #(GLB MSG NUM NUM NUM DOT).
+	expected := OrderedCollection withAll: #(CLS MSG NUM NUM NUM DOT).
 	actual := method tokenTypes.
 	self assert: actual equals: expected
 ]
@@ -211,7 +220,7 @@ TokenTypesTest >> testMessageThreeArgs [
 TokenTypesTest >> testMessageTwoArgs [
 	| method expected actual |
 	method := exampleClass >> #exampleMessageTwoArgs.
-	expected := OrderedCollection withAll: #(GLB MSG NUM NUM DOT).
+	expected := OrderedCollection withAll: #(CLS MSG NUM NUM DOT).
 	actual := method tokenTypes.
 	self assert: actual equals: expected
 ]

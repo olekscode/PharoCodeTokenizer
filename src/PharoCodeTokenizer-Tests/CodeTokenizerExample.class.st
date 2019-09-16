@@ -93,6 +93,11 @@ CodeTokenizerExample >> exampleEmptyMethod [
 ]
 
 { #category : #examples }
+CodeTokenizerExample >> exampleGlobal [
+	Transcript
+]
+
+{ #category : #examples }
 CodeTokenizerExample >> exampleInstanceVariable [
 	anInstanceVariable := 1
 ]

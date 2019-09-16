@@ -144,6 +144,15 @@ WordsFromIdentifierNamesTest >> testEmptyMethod [
 ]
 
 { #category : #tests }
+WordsFromIdentifierNamesTest >> testGlobal [
+	| method expected actual |
+	method := exampleClass >> #exampleGlobal.
+	expected := OrderedCollection withAll: #(transcript).
+	actual := method wordsFromIdentifierNames.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
 WordsFromIdentifierNamesTest >> testInstanceVariable [
 	| method expected actual |
 	method := exampleClass >> #exampleInstanceVariable.

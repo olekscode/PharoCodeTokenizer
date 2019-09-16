@@ -145,6 +145,15 @@ WordsFromSourceCodeTest >> testEmptyMethod [
 ]
 
 { #category : #tests }
+WordsFromSourceCodeTest >> testGlobal [
+	| method expected actual |
+	method := exampleClass >> #exampleGlobal.
+	expected := OrderedCollection withAll: #(transcript).
+	actual := method wordsFromSourceCode.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
 WordsFromSourceCodeTest >> testInstanceVariable [
 	| method expected actual |
 	method := exampleClass >> #exampleInstanceVariable.

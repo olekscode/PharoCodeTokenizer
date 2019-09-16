@@ -60,7 +60,9 @@ TokenTypesCollectingVisitor >> visitBlockNode: aBlockNode [
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitGlobalNode: aGlobalNode [
-	tokens add: 'GLB'
+	tokens add: ((Smalltalk globals at: aGlobalNode name) isClass
+		ifTrue: [ 'CLS' ]
+		ifFalse: [ 'GLB' ]).
 ]
 
 { #category : #visiting }

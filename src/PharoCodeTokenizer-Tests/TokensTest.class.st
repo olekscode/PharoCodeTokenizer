@@ -145,6 +145,15 @@ TokensTest >> testEmptyMethod [
 ]
 
 { #category : #tests }
+TokensTest >> testGlobal [
+	| method expected actual |
+	method := exampleClass >> #exampleGlobal.
+	expected := OrderedCollection withAll: #(Transcript .).
+	actual := method tokens.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
 TokensTest >> testInstanceVariable [
 	| method expected actual |
 	method := exampleClass >> #exampleInstanceVariable.
