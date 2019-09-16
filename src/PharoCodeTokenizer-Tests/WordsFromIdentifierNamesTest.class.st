@@ -102,7 +102,7 @@ WordsFromIdentifierNamesTest >> testCollect [
 WordsFromIdentifierNamesTest >> testComment [
 	| method expected actual |
 	method := exampleClass >> #exampleComment.
-	expected := OrderedCollection withAll: #(as string 'false' if 'true').
+	expected := OrderedCollection withAll: #(as string if 'true').
 	actual := method wordsFromIdentifierNames.
 	self assert: actual equals: expected
 ]

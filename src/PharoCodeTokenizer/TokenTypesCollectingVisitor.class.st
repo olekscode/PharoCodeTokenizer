@@ -62,11 +62,13 @@ TokenTypesCollectingVisitor >> visitGlobalNode: aGlobalNode [
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitLiteralArrayNode: aLiteralNode [
 	tokens add: 'ARR'.
+	aLiteralNode commentStrings do: [ :comment | tokens add: 'COM' ].
 ]
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitLiteralNode: aLiteralNode [
-	tokens add: (self encodeLiteral: aLiteralNode value)
+	tokens add: (self encodeLiteral: aLiteralNode value).
+	aLiteralNode commentStrings do: [ :comment | tokens add: 'COM' ].
 ]
 
 { #category : #visiting }
@@ -98,6 +100,9 @@ TokenTypesCollectingVisitor >> visitSequenceNode: aSequence [
 		ifTrue: [ tokens add: 'PIP'.
 			aSequence temporaries do: [ :each | each acceptVisitor: self ].
 			tokens add: 'PIP' ].
+		
+	aSequence commentStrings do: [ :comment | tokens add: 'COM' ].
+		
 	aSequence statements
 		do: [ :each | 
 			each acceptVisitor: self.
@@ -107,10 +112,12 @@ TokenTypesCollectingVisitor >> visitSequenceNode: aSequence [
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitTemporaryNode: aTemporaryNode [
-	tokens add: 'TMP'
+	tokens add: 'TMP'.
+	aTemporaryNode commentStrings do: [ :comment | tokens add: 'COM' ].
 ]
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitVariableNode: aVariableNode [
-	tokens add: 'VAR'
+	tokens add: 'VAR'.
+	aVariableNode commentStrings do: [ :comment | tokens add: 'COM' ].
 ]

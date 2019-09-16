@@ -62,9 +62,11 @@ CodeTokenizerExample >> exampleComment [
 	"this is a comment"
 	'hello', 1 asString.
 	"another comment"
-	[ false ] ifTrue: [ 
+	[ 2 + 2 "value comment" ] ifTrue: [
+		| x |
 		"comment inside a block".
-		^ 1 + 1 ]
+		^ 1 + 1 .
+		"last comment" ]
 ]
 
 { #category : #'as yet unclassified' }

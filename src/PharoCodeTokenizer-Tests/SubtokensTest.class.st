@@ -103,7 +103,7 @@ SubtokensTest >> testCollect [
 SubtokensTest >> testComment [
 	| method expected actual |
 	method := exampleClass >> #exampleComment.
-	expected := OrderedCollection withAll: #('<str>' , '<num>' as string . [ 'false' . ] if 'true' : [ ^ '<num>' + '<num>' . ] .).
+	expected := OrderedCollection withAll: #('<str>' , '<num>' as string . [ '<num>' + '<num>' . ] if 'true' : [ | x | ^ '<num>' + '<num>' . ] .).
 	actual := method subtokens.
 	self assert: actual equals: expected
 ]

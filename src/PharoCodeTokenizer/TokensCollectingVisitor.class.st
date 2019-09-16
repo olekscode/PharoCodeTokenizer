@@ -65,11 +65,13 @@ TokensCollectingVisitor >> visitGlobalNode: aGlobalNode [
 { #category : #visiting }
 TokensCollectingVisitor >> visitLiteralArrayNode: aLiteralNode [
 	tokens add: aLiteralNode value asString.
+	self addComments: aLiteralNode commentStrings.
 ]
 
 { #category : #visiting }
 TokensCollectingVisitor >> visitLiteralNode: aLiteralNode [
-	tokens add: aLiteralNode value asString
+	tokens add: aLiteralNode value asString.
+	self addComments: aLiteralNode commentStrings.
 ]
 
 { #category : #visiting }
@@ -90,12 +92,6 @@ TokensCollectingVisitor >> visitMethodNode: aMethodNode [
 ]
 
 { #category : #visiting }
-TokensCollectingVisitor >> visitNode: aNode [
-	super visitNode: aNode.
-	"self tokens addAll: aNode commentStrings."
-]
-
-{ #category : #visiting }
 TokensCollectingVisitor >> visitReturnNode: aReturnNode [
 	tokens add: '^'.
 	aReturnNode children do: [ :each | self visitNode: each ]
@@ -107,6 +103,9 @@ TokensCollectingVisitor >> visitSequenceNode: aNode [
 		ifTrue: [ tokens add: '|'.
 			aNode temporaries do: [ :each | self visitNode: each ].
 			tokens add: '|' ].
+		
+	self addComments: aNode commentStrings.
+	
 	aNode statements
 		do: [ :each | 
 			self visitNode: each.
@@ -116,10 +115,12 @@ TokensCollectingVisitor >> visitSequenceNode: aNode [
 
 { #category : #visiting }
 TokensCollectingVisitor >> visitTemporaryNode: aTemporaryNode [
-	tokens add: aTemporaryNode name asString
+	tokens add: aTemporaryNode name asString.
+	self addComments: aTemporaryNode commentStrings.
 ]
 
 { #category : #visiting }
 TokensCollectingVisitor >> visitVariableNode: aVariableNode [
-	tokens add: aVariableNode name asString
+	tokens add: aVariableNode name asString.
+	self addComments: aVariableNode commentStrings.
 ]
