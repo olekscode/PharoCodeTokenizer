@@ -99,6 +99,11 @@ TokenTypesCollectingVisitor >> visitReturnNode: aReturnNode [
 ]
 
 { #category : #visiting }
+TokenTypesCollectingVisitor >> visitSelfNode: aNode [
+	tokens add: 'SLF'.
+]
+
+{ #category : #visiting }
 TokenTypesCollectingVisitor >> visitSequenceNode: aSequence [
 	aSequence temporaries size > 0
 		ifTrue: [ tokens add: 'PIP'.
@@ -112,8 +117,18 @@ TokenTypesCollectingVisitor >> visitSequenceNode: aSequence [
 ]
 
 { #category : #visiting }
+TokenTypesCollectingVisitor >> visitSuperNode: aNode [
+	tokens add: 'SUP'.
+]
+
+{ #category : #visiting }
 TokenTypesCollectingVisitor >> visitTemporaryNode: aTemporaryNode [
 	tokens add: 'TMP'.
+]
+
+{ #category : #visiting }
+TokenTypesCollectingVisitor >> visitThisContextNode: aNode [
+	tokens add: 'THS'.
 ]
 
 { #category : #visiting }

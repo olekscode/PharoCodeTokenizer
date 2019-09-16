@@ -94,7 +94,7 @@ TokenTypesTest >> testClass [
 TokenTypesTest >> testCollect [
 	| method expected actual |
 	method := exampleClass >> #exampleCollect.
-	expected := OrderedCollection withAll: #(VAR MSG SB1 ARG PIP ARG DOT SB2 DOT).
+	expected := OrderedCollection withAll: #(SLF MSG SB1 ARG PIP ARG DOT SB2 DOT).
 	actual := method tokenTypes.
 	self assert: actual equals: expected
 ]
@@ -274,7 +274,7 @@ TokenTypesTest >> testReturn [
 TokenTypesTest >> testSelf [
 	| method expected actual |
 	method := exampleClass >> #exampleSelf.
-	expected := OrderedCollection withAll: #(VAR DOT).
+	expected := OrderedCollection withAll: #(SLF DOT).
 	actual := method tokenTypes.
 	self assert: actual equals: expected
 ]
@@ -292,7 +292,7 @@ TokenTypesTest >> testSequence [
 TokenTypesTest >> testSuper [
 	| method expected actual |
 	method := exampleClass >> #exampleSuper.
-	expected := OrderedCollection withAll: #(VAR DOT).
+	expected := OrderedCollection withAll: #(SUP DOT).
 	actual := method tokenTypes.
 	self assert: actual equals: expected
 ]
@@ -331,7 +331,7 @@ TokenTypesTest >> testTemporaryUsed [
 TokenTypesTest >> testThisContext [
 	| method expected actual |
 	method := exampleClass >> #exampleThisContext.
-	expected := OrderedCollection withAll: #(VAR DOT).
+	expected := OrderedCollection withAll: #(THS DOT).
 	actual := method tokenTypes.
 	self assert: actual equals: expected
 ]
