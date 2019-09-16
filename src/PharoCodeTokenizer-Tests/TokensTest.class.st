@@ -103,7 +103,7 @@ TokensTest >> testCollect [
 TokensTest >> testComment [
 	| method expected actual |
 	method := exampleClass >> #exampleComment.
-	expected := OrderedCollection withAll: #('this is a comment' 'hello' , '1' asString . 'another comment' [ '2' + '2' 'value comment' . ] ifTrue: [ | x | 'comment inside a block' ^ '1' + '1' . 'last comment' ] .).
+	expected := OrderedCollection withAll: #('first comment' 'multiline comment with a tab' 'hello' , '#()' collect: [ ':each' | each 'argument comment' . ] 'another comment' . [ '2' + '2' 'value comment' . ] ifTrue: [ | x | ^ '1' + '1' 'last block comment' . 'comment inside a block' ] 'block comment before temps' 'last comment' .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]

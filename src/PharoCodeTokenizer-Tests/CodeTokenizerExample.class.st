@@ -59,14 +59,18 @@ CodeTokenizerExample >> exampleCollect [
 
 { #category : #'as yet unclassified' }
 CodeTokenizerExample >> exampleComment [
-	"this is a comment"
-	'hello', 1 asString.
+	"first comment"
+	"multiline
+	comment	with a tab"
+	'hello', #() collect: [ :each | each "argument comment" ].
 	"another comment"
 	[ 2 + 2 "value comment" ] ifTrue: [
+		"block comment before temps"
 		| x |
 		"comment inside a block".
 		^ 1 + 1 .
-		"last comment" ]
+		"last block comment" ]
+	"last comment"
 ]
 
 { #category : #'as yet unclassified' }

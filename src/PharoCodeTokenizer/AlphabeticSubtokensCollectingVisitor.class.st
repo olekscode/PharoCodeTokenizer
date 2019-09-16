@@ -12,12 +12,12 @@ AlphabeticSubtokensCollectingVisitor >> addComments: aCollectionOfComments [
 { #category : #visiting }
 AlphabeticSubtokensCollectingVisitor >> visitAssignmentNode: anAssignement [
 	tokens add: anAssignement variable name asString.
-	anAssignement value acceptVisitor: self
+	self visitNode: anAssignement value
 ]
 
 { #category : #visiting }
 AlphabeticSubtokensCollectingVisitor >> visitBlockNode: aBlockNode [
-	aBlockNode body acceptVisitor: self.
+	self visitNode: aBlockNode body.
 ]
 
 { #category : #visiting }
@@ -34,14 +34,14 @@ AlphabeticSubtokensCollectingVisitor >> visitLiteralNode: aLiteralNode [
 
 { #category : #visiting }
 AlphabeticSubtokensCollectingVisitor >> visitMessageNode: aMessageNode [
-	aMessageNode receiver acceptVisitor: self.
+	self visitNode: aMessageNode receiver.
 	
 	aMessageNode arguments
 		ifEmpty: [ tokens add: aMessageNode selector asString ]
 		ifNotEmpty: [
 			(1 to: aMessageNode arguments size) do: [ :i | 
 				tokens add: (aMessageNode selectorParts at: i) asString.
-				(aMessageNode arguments at: i) acceptVisitor: self ] ].
+				self visitNode: (aMessageNode arguments at: i) ] ].
 ]
 
 { #category : #visiting }
@@ -55,5 +55,5 @@ AlphabeticSubtokensCollectingVisitor >> visitMethodNode: aMethodNode [
 { #category : #visiting }
 AlphabeticSubtokensCollectingVisitor >> visitSequenceNode: aSequence [
 	aSequence statements
-		do: [ :each | each acceptVisitor: self ]
+		do: [ :each | self visitNode: each ]
 ]

@@ -103,7 +103,7 @@ WordsFromSourceCodeTest >> testCollect [
 WordsFromSourceCodeTest >> testComment [
 	| method expected actual |
 	method := exampleClass >> #exampleComment.
-	expected := OrderedCollection withAll: #(this is a comment hello as string another comment value comment if 'true' x comment inside a block last comment).
+	expected := OrderedCollection withAll: #(first comment multiline comment with a tab hello collect each each argument comment another comment value comment if 'true' block comment before temps x comment inside a block last block comment last comment).
 	actual := method wordsFromSourceCode.
 	self assert: actual equals: expected
 ]

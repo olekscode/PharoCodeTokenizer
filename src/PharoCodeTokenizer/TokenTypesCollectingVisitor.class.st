@@ -4,6 +4,11 @@ Class {
 	#category : #PharoCodeTokenizer
 }
 
+{ #category : #adding }
+TokenTypesCollectingVisitor >> addComments: aCollectionOfComments [
+	tokens addAll: (aCollectionOfComments collect: [ :each | 'COM' ])
+]
+
 { #category : #encoding }
 TokenTypesCollectingVisitor >> encodeLiteral: aLiteral [
 	aLiteral isNumber
@@ -29,28 +34,27 @@ TokenTypesCollectingVisitor >> visitArgumentNode: anArgumentNode [
 TokenTypesCollectingVisitor >> visitArrayNode: aLiteralNode [
 	tokens add: 'CB1'.
 	1 to: aLiteralNode children size - 1 do: [ :i | 
-		(aLiteralNode children at: i) acceptVisitor: self.
+		self visitNode: (aLiteralNode children at: i).
 		tokens add: 'DOT' ].
 	aLiteralNode children isEmpty
-		ifFalse: [ aLiteralNode children last acceptVisitor: self ].
+		ifFalse: [ self visitNode: aLiteralNode children last ].
 	tokens add: 'CB2'
 ]
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitAssignmentNode: anAssignment [
-	anAssignment variable acceptVisitor: self.
+	self visitNode: anAssignment variable.
 	tokens add: 'ASS'.
-	anAssignment value acceptVisitor: self
+	self visitNode: anAssignment value
 ]
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitBlockNode: aBlockNode [
 	tokens add: 'SB1'.
-	aBlockNode arguments do: [ :each | each acceptVisitor: self ].
+	aBlockNode arguments do: [ :each | self visitNode: each ].
 	aBlockNode arguments size > 0
 		ifTrue: [ tokens add: 'PIP' ].
-	aBlockNode comments do: [ :each | tokens add: 'COM' ].
-	aBlockNode body acceptVisitor: self.
+	self visitNode: aBlockNode body.
 	tokens add: 'SB2'
 ]
 
@@ -62,25 +66,23 @@ TokenTypesCollectingVisitor >> visitGlobalNode: aGlobalNode [
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitLiteralArrayNode: aLiteralNode [
 	tokens add: 'ARR'.
-	aLiteralNode commentStrings do: [ :comment | tokens add: 'COM' ].
 ]
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitLiteralNode: aLiteralNode [
 	tokens add: (self encodeLiteral: aLiteralNode value).
-	aLiteralNode commentStrings do: [ :comment | tokens add: 'COM' ].
 ]
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitMessageNode: aMessageNode [
-	aMessageNode receiver acceptVisitor: self.
+	self visitNode: aMessageNode receiver.
 	tokens add: 'MSG'.
-	aMessageNode arguments do: [ :each | each acceptVisitor: self ].
+	aMessageNode arguments do: [ :each | self visitNode: each ].
 ]
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitMethodNode: aMethodNode [
-	aMethodNode comments do: [ :each | tokens add: 'COM' ].
+	self addCommentsFrom: aMethodNode.
 	
 	aMethodNode children
 		do: [ :each |
@@ -91,33 +93,28 @@ TokenTypesCollectingVisitor >> visitMethodNode: aMethodNode [
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitReturnNode: aReturnNode [
 	tokens add: 'RET'.
-	aReturnNode children do: [ :each | each acceptVisitor: self ]
+	aReturnNode children do: [ :each | self visitNode: each ]
 ]
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitSequenceNode: aSequence [
 	aSequence temporaries size > 0
 		ifTrue: [ tokens add: 'PIP'.
-			aSequence temporaries do: [ :each | each acceptVisitor: self ].
+			aSequence temporaries do: [ :each | self visitNode: each ].
 			tokens add: 'PIP' ].
-		
-	aSequence commentStrings do: [ :comment | tokens add: 'COM' ].
 		
 	aSequence statements
 		do: [ :each | 
-			each acceptVisitor: self.
-			tokens add: 'DOT'.
-			each commentStrings do: [ :comment | tokens add: 'COM' ] ]
+			self visitNode: each.
+			tokens add: 'DOT' ]
 ]
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitTemporaryNode: aTemporaryNode [
 	tokens add: 'TMP'.
-	aTemporaryNode commentStrings do: [ :comment | tokens add: 'COM' ].
 ]
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitVariableNode: aVariableNode [
 	tokens add: 'VAR'.
-	aVariableNode commentStrings do: [ :comment | tokens add: 'COM' ].
 ]

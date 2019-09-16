@@ -12,6 +12,11 @@ TokensCollectingVisitor >> addComments: aCollectionOfComments [
 	tokens addAll: aCollectionOfComments
 ]
 
+{ #category : #adding }
+TokensCollectingVisitor >> addCommentsFrom: aNode [
+	self addComments: aNode commentsAsCleanStrings
+]
+
 { #category : #initialization }
 TokensCollectingVisitor >> initialize [
 	super initialize.
@@ -52,7 +57,6 @@ TokensCollectingVisitor >> visitBlockNode: aBlockNode [
 	aBlockNode arguments do: [ :each | tokens add: ':' , each name asString ].
 	aBlockNode arguments size > 0
 		ifTrue: [ tokens add: '|' ].
-	self addComments: (aBlockNode comments collect: #contents).
 	self visitNode: aBlockNode body.
 	tokens add: ']'
 ]
@@ -65,13 +69,13 @@ TokensCollectingVisitor >> visitGlobalNode: aGlobalNode [
 { #category : #visiting }
 TokensCollectingVisitor >> visitLiteralArrayNode: aLiteralNode [
 	tokens add: aLiteralNode value asString.
-	self addComments: aLiteralNode commentStrings.
+	"self addComments: aLiteralNode commentStrings."
 ]
 
 { #category : #visiting }
 TokensCollectingVisitor >> visitLiteralNode: aLiteralNode [
 	tokens add: aLiteralNode value asString.
-	self addComments: aLiteralNode commentStrings.
+	"self addComments: aLiteralNode commentStrings."
 ]
 
 { #category : #visiting }
@@ -83,12 +87,19 @@ TokensCollectingVisitor >> visitMessageNode: aMessageNode [
 
 { #category : #visiting }
 TokensCollectingVisitor >> visitMethodNode: aMethodNode [
-	self addComments: aMethodNode commentStrings.
+	self addCommentsFrom: aMethodNode.
+	"self addComments: aMethodNode commentStrings."
 	
 	aMethodNode children
 		do: [ :each |
 			each class = RBSequenceNode
 				ifTrue: [ self visitNode: each ] ]
+]
+
+{ #category : #visiting }
+TokensCollectingVisitor >> visitNode: aNode [
+	super visitNode: aNode.
+	self addCommentsFrom: aNode.
 ]
 
 { #category : #visiting }
@@ -103,24 +114,21 @@ TokensCollectingVisitor >> visitSequenceNode: aNode [
 		ifTrue: [ tokens add: '|'.
 			aNode temporaries do: [ :each | self visitNode: each ].
 			tokens add: '|' ].
-		
-	self addComments: aNode commentStrings.
 	
 	aNode statements
 		do: [ :each | 
 			self visitNode: each.
-			tokens add: '.'.
-			self addComments: each commentStrings. ].
+			tokens add: '.' ].
 ]
 
 { #category : #visiting }
 TokensCollectingVisitor >> visitTemporaryNode: aTemporaryNode [
 	tokens add: aTemporaryNode name asString.
-	self addComments: aTemporaryNode commentStrings.
+	"self addComments: aTemporaryNode commentStrings."
 ]
 
 { #category : #visiting }
 TokensCollectingVisitor >> visitVariableNode: aVariableNode [
 	tokens add: aVariableNode name asString.
-	self addComments: aVariableNode commentStrings.
+	"self addComments: aVariableNode commentStrings."
 ]

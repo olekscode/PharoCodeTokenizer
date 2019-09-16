@@ -38,10 +38,10 @@ SubtokensCollectingVisitor >> visitBlockNode: aBlockNode [
 	tokens add: '['.
 	aBlockNode arguments do: [ :each |
 		tokens add: ':'.
-		each acceptVisitor: self  ].
+		self visitNode: each  ].
 	aBlockNode arguments size > 0
 		ifTrue: [ tokens add: '|' ].
-	aBlockNode body acceptVisitor: self.
+	self visitNode: aBlockNode body.
 	tokens add: ']'
 ]
 
@@ -62,14 +62,14 @@ SubtokensCollectingVisitor >> visitLiteralNode: aLiteralNode [
 
 { #category : #visiting }
 SubtokensCollectingVisitor >> visitMessageNode: aMessageNode [
-	aMessageNode receiver acceptVisitor: self.
+	self visitNode: aMessageNode receiver.
 	
 	aMessageNode arguments
 		ifEmpty: [ tokens addAll: (self extractSubtokens: aMessageNode selector asString) ]
 		ifNotEmpty: [
 			(1 to: aMessageNode arguments size) do: [ :i | 
 				tokens addAll: (self extractSubtokens: (aMessageNode selectorParts at: i) asString).
-				(aMessageNode arguments at: i) acceptVisitor: self ] ].
+				self visitNode: (aMessageNode arguments at: i) ] ].
 ]
 
 { #category : #visiting }
