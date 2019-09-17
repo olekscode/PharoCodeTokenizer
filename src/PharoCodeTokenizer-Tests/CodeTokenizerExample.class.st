@@ -4,8 +4,16 @@ Class {
 	#instVars : [
 		'anInstanceVariable'
 	],
+	#classInstVars : [
+		'classVariable'
+	],
 	#category : #'PharoCodeTokenizer-Tests'
 }
+
+{ #category : #'as yet unclassified' }
+CodeTokenizerExample class >> exampleClassSideVariable [
+	classVariable := 42.
+]
 
 { #category : #examples }
 CodeTokenizerExample >> exampleAlphabeticCharacter [
