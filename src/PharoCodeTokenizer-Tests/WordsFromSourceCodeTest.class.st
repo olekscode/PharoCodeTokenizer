@@ -91,10 +91,19 @@ WordsFromSourceCodeTest >> testClass [
 ]
 
 { #category : #tests }
-WordsFromSourceCodeTest >> testClassSideVariable [
+WordsFromSourceCodeTest >> testClassInstanceVariable [
 	| method expected actual |
-	method := exampleClass class >> #exampleClassSideVariable.
-	expected := OrderedCollection withAll: #(class variable).
+	method := exampleClass class >> #exampleClassInstanceVariable.
+	expected := OrderedCollection withAll: #(class instance variable).
+	actual := method wordsFromSourceCode.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
+WordsFromSourceCodeTest >> testClassVariable [
+	| method expected actual |
+	method := exampleClass >> #exampleClassVariable.
+	expected := OrderedCollection withAll: #(my class variable).
 	actual := method wordsFromSourceCode.
 	self assert: actual equals: expected
 ]

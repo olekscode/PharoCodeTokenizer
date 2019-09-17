@@ -91,10 +91,19 @@ SubtokensTest >> testClass [
 ]
 
 { #category : #tests }
-SubtokensTest >> testClassSideVariable [
+SubtokensTest >> testClassInstanceVariable [
 	| method expected actual |
-	method := exampleClass class >> #exampleClassSideVariable.
-	expected := OrderedCollection withAll: #(class variable ':=' '<num>' .).
+	method := exampleClass class >> #exampleClassInstanceVariable.
+	expected := OrderedCollection withAll: #(class instance variable ':=' '<num>' .).
+	actual := method subtokens.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
+SubtokensTest >> testClassVariable [
+	| method expected actual |
+	method := exampleClass >> #exampleClassVariable.
+	expected := OrderedCollection withAll: #(my class variable ':=' '<num>' .).
 	actual := method subtokens.
 	self assert: actual equals: expected
 ]

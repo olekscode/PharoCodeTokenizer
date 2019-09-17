@@ -60,9 +60,15 @@ TokenTypesCollectingVisitor >> visitBlockNode: aBlockNode [
 
 { #category : #visiting }
 TokenTypesCollectingVisitor >> visitGlobalNode: aGlobalNode [
-	tokens add: ((Smalltalk globals at: aGlobalNode name) isClass
-		ifTrue: [ 'CLS' ]
-		ifFalse: [ 'GLB' ]).
+	(Smalltalk globals keys includes: aGlobalNode name)
+		ifFalse: [
+			"If the name is not in the dictionary of globals then it's a class variable"
+			tokens add: 'CVR' ]
+		ifTrue: [
+			"If it's in the dictionary then it's either a class or a global variable"
+			tokens add: ((Smalltalk globals at: aGlobalNode name) isClass
+				ifTrue: [ 'CLS' ]
+				ifFalse: [ 'GLB' ]) ].
 ]
 
 { #category : #visiting }

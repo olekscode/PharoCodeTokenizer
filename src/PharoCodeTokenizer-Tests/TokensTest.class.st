@@ -91,10 +91,19 @@ TokensTest >> testClass [
 ]
 
 { #category : #tests }
-TokensTest >> testClassSideVariable [
+TokensTest >> testClassInstanceVariable [
 	| method expected actual |
-	method := exampleClass class >> #exampleClassSideVariable.
-	expected := OrderedCollection withAll: #(classVariable ':=' '42' .).
+	method := exampleClass class >> #exampleClassInstanceVariable.
+	expected := OrderedCollection withAll: #(classInstanceVariable ':=' '42' .).
+	actual := method tokens.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
+TokensTest >> testClassVariable [
+	| method expected actual |
+	method := exampleClass >> #exampleClassVariable.
+	expected := OrderedCollection withAll: #(MyClassVariable ':=' '42' .).
 	actual := method tokens.
 	self assert: actual equals: expected
 ]

@@ -4,15 +4,18 @@ Class {
 	#instVars : [
 		'anInstanceVariable'
 	],
+	#classVars : [
+		'MyClassVariable'
+	],
 	#classInstVars : [
-		'classVariable'
+		'classInstanceVariable'
 	],
 	#category : #'PharoCodeTokenizer-Tests'
 }
 
 { #category : #'as yet unclassified' }
-CodeTokenizerExample class >> exampleClassSideVariable [
-	classVariable := 42.
+CodeTokenizerExample class >> exampleClassInstanceVariable [
+	classInstanceVariable := 42.
 ]
 
 { #category : #examples }
@@ -58,6 +61,11 @@ CodeTokenizerExample >> exampleCharacter [
 { #category : #examples }
 CodeTokenizerExample >> exampleClass [
 	OrderedCollection
+]
+
+{ #category : #examples }
+CodeTokenizerExample >> exampleClassVariable [
+	MyClassVariable := 42.
 ]
 
 { #category : #examples }

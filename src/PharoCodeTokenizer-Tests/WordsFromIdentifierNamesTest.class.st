@@ -90,10 +90,19 @@ WordsFromIdentifierNamesTest >> testClass [
 ]
 
 { #category : #tests }
-WordsFromIdentifierNamesTest >> testClassSideVariable [
+WordsFromIdentifierNamesTest >> testClassInstanceVariable [
 	| method expected actual |
-	method := exampleClass class >> #exampleClassSideVariable.
-	expected := OrderedCollection withAll: #(class variable).
+	method := exampleClass class >> #exampleClassInstanceVariable.
+	expected := OrderedCollection withAll: #(class instance variable).
+	actual := method wordsFromIdentifierNames.
+	self assert: actual equals: expected
+]
+
+{ #category : #tests }
+WordsFromIdentifierNamesTest >> testClassVariable [
+	| method expected actual |
+	method := exampleClass >> #exampleClassVariable.
+	expected := OrderedCollection withAll: #(my class variable).
 	actual := method wordsFromIdentifierNames.
 	self assert: actual equals: expected
 ]
